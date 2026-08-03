@@ -118,7 +118,7 @@ const tx = new TransactionBuilder(account, { fee: BASE_FEE, networkPassphrase })
       "deposit_for_burn",
       Address.fromString(caller).toScVal(),
       nativeToScVal(amount, { type: "i128" }),          // 7-decimal Stellar subunits
-      nativeToScVal(destinationDomain, { type: "u32" }), // e.g. 0 Ethereum, 6 Base, 5 Solana
+      nativeToScVal(destinationDomain, { type: "u32" }), // e.g. 0 Ethereum, 5 Solana, 6 Base, 26 Arc
       bytesN32(mintRecipient),   // 32-byte recipient: EVM address left-padded to 32; Solana: the USDC ATA's raw bytes
       Address.fromString(USDC_SAC).toScVal(),
       bytesN32(destinationCaller), // 32 zero bytes = anyone may complete the mint (permissionless)
@@ -135,6 +135,15 @@ const tx = new TransactionBuilder(account, { fee: BASE_FEE, networkPassphrase })
 4. Submit `receiveMessage(message, attestation)` on the destination chain's `MessageTransmitterV2`. With `destinationCaller` zeroed this is permissionless — anyone (the recipient, your backend, a relayer) can submit it.
 
 Recipient encoding: for EVM, left-pad the 20-byte address to 32 bytes. For Solana, `mintRecipient` is the recipient's **USDC associated token account** (not their wallet address) as raw 32 bytes.
+
+Destination-side reference: CCTP V2 uses the **same contract addresses on every EVM chain** (one exception, EDGE — the authoritative list is [Circle's EVM contract addresses](https://developers.circle.com/cctp/evm-smart-contracts)):
+
+| Contract | All EVM testnets | All EVM mainnets |
+|---|---|---|
+| `MessageTransmitterV2` — `receiveMessage(bytes message, bytes attestation)` | `0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275` | `0x81D40F21F12A8F0E3252Bccb954D722d4c464B64` |
+| `TokenMessengerV2` — `depositForBurn` / `depositForBurnWithHook` | `0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA` | `0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d` |
+
+Pass Iris's `message` and `attestation` hex to `receiveMessage` verbatim. Domain IDs are Circle-assigned — Ethereum 0, Solana 5, Base 6, Arc 26, Stellar 27; the full table is in [supported chains and domains](https://developers.circle.com/cctp/concepts/supported-chains-and-domains) (a mainnet listing covers its official testnet too).
 
 **One-signature variant.** The two-transaction dance (approve, then burn) collapses into one Soroban transaction with a ~40-line wrapper contract, because Soroban's auth tree lets a single signature authorize both nested calls. From the [reference demo](https://github.com/ElliotFriend/stunning-octo-carnival) (`contracts/stellar/cctp-wrapper/`), verbatim:
 
@@ -176,9 +185,9 @@ GET https://iris-api-sandbox.circle.com/v2/messages/{sourceDomain}?transactionHa
 GET https://iris-api.circle.com/v2/messages/{sourceDomain}?transactionHash={hash}           # mainnet
 ```
 
-Poll until `status` is `"complete"`, then read `message` and `attestation` (both hex). Field-level gotchas, all verified against live behavior:
+Poll until `status` is `"complete"`, then read `message` and `attestation` (both hex). The same hosts also serve the fee schedule — `GET /v2/burn/USDC/fees/{sourceDomain}/{destDomain}` returns the `minimumFee` per finality threshold; use it to set `maxFee` instead of guessing, and to predict the exact minted amount (`amount − feeExecuted`). Field-level gotchas, all verified against live behavior:
 
-- **Stellar legs return `null` address fields.** In `decodedMessage`/`decodedMessageBody`, `sender`, `recipient`, `mintRecipient`, etc. are `null` when Stellar is involved — the API can't decode 32-byte Stellar payloads either. The transfer is fine; parse the raw `message` hex if you need the addresses.
+- **Fields holding Stellar payloads return `null`.** In `decodedMessage`/`decodedMessageBody`, the API decodes EVM-address fields normally but returns `null` for fields carrying 32-byte Stellar payloads — on a Stellar→EVM leg, `sender`/`burnToken` come back `null` while `recipient`/`mintRecipient`/`destinationCaller` arrive populated; on an EVM→Stellar leg it's the reverse. The transfer is fine either way; parse the raw `message` hex if you need the Stellar-side addresses.
 - **Normalize hex hashes to lowercase, but never touch Solana signatures.** Solana tx signatures are base58 and case-sensitive — lowercasing one makes Iris 404 forever. Only lowercase hashes matching `/^(0x)?[0-9a-fA-F]+$/`.
 - `delayReason: "insufficient_fee"` means your `maxFee` didn't cover the Fast tier — the transfer falls back to Standard finality rather than failing.
 - Attestation latency is dominated by source-chain finality: seconds on fast-finality chains, up to ~15 minutes for Standard transfers from Ethereum-derived chains. `finalityThreshold` 1000 (Fast) vs 2000 (Standard) trades fee for speed.
