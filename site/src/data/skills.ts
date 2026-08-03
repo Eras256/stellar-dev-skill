@@ -197,6 +197,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
   },
   {
+    title: "Sozu Testnet USDC Faucet",
+    description:
+      "Claim Stellar testnet Circle USDC (SAC) with one npx command (PoW-gated)—the agent-scriptable alternative to the Circle captcha faucet. Covers G… Friendbot + USDC trustline prep, then claim for C…/G… addresses.",
+    pathLabel: "blessedux/agent-skills",
+    copyValue:
+      "https://github.com/blessedux/agent-skills/blob/main/sozu-faucet/SKILL.md",
+  },
+  {
     title: "LumenLoop MCP Connect",
     description:
       "Connect any MCP client (Claude, ChatGPT, Gemini, Cursor) to LumenLoop's free read-only Stellar ecosystem MCP and learn its query tools for directory, content, and SCF data.",
