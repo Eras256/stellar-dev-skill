@@ -199,7 +199,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Sozu Testnet USDC Faucet",
     description:
-      "Claim Stellar testnet Circle USDC (SAC) with one PoW-gated npx command—the agent-scriptable alternative to the Circle captcha faucet. Omit the address to mint a G… wallet + USDC trustline + claim; existing G… wallets use Stellar Lab for trustlines (no secrets in chat); C… claims directly.",
+      "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
     pathLabel: "blessedux/agent-skills",
     copyValue:
       "https://github.com/blessedux/agent-skills/blob/main/sozu-faucet/SKILL.md",
