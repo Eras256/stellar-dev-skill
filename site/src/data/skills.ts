@@ -197,6 +197,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
   },
   {
+    title: "Sozu Testnet USDC Faucet",
+    description:
+      "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
+    pathLabel: "blessedux/agent-skills",
+    copyValue:
+      "https://github.com/blessedux/agent-skills/blob/main/sozu-faucet/SKILL.md",
+  },
+  {
     title: "LumenLoop MCP Connect",
     description:
       "Connect any MCP client (Claude, ChatGPT, Gemini, Cursor) to LumenLoop's free read-only Stellar ecosystem MCP and learn its query tools for directory, content, and SCF data.",
