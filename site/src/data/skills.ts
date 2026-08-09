@@ -284,4 +284,12 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "stellarlight.xyz/scout",
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
   },
+  {
+    title: "Stellar Agent Search",
+    description:
+      "Register a read-only, keyless stdio MCP server (stellar-agent-search) that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet via natural-language queries. Covers find/rank/profile tools, declared-vs-verified reputation boundaries, self-declared x402/MPP service candidates, and the /prepare-x402-call workflow that stops before signing.",
+    pathLabel: "berkingurcan/stellar-agent-search",
+    copyValue:
+      "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
+  },
 ] as const;
