@@ -9,7 +9,7 @@ argument-hint: "[zk task]"
 
 ZK verification on Stellar. Capability is protocol- and SDK-version dependent — always verify CAP status, network version, and `soroban-sdk` host-function support before relying on a primitive.
 
-> **Last verified against Protocol 27** (mainnet, July 2026). CAP-0074/0075 shipped in Protocol 25 "X-Ray" and CAP-0080 (BN254 MSM, Fr arithmetic, on-curve checks) in Protocol 26 — if a doc tells you BN254 or Poseidon is "proposed", it predates that.
+> **Last verified against Protocol 27** (mainnet, August 2026). CAP-0074/0075 shipped in Protocol 25 "X-Ray" and CAP-0080 (BN254 MSM, Fr arithmetic, on-curve checks) in Protocol 26 — if a doc tells you BN254 or Poseidon is "proposed", it predates that.
 
 ## When to use this skill
 - Implementing a Groth16 (or other SNARK) verifier as a Stellar smart contract
