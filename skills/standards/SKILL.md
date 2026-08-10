@@ -350,14 +350,6 @@ Remote Model Context Protocol (MCP) server for AI agents. Searches Stellar docs 
 - **Connect (Claude Code)**: `claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"`
 - **Tools**: `search`, `execute`
 
-#### Stellar Agent Search
-Read-only, keyless stdio Model Context Protocol (MCP) server (npm `stellar-agent-search`) that lets an AI agent discover, rank, and vet on-chain [Stellar 8004](https://stellar8004.com) agents on Stellar mainnet, then prepare an x402 (USDC) call without signing. Reputation values stay declared; a bounded Reputation-contract reachability probe degrades closed rather than manufacturing a match. Remote `/mcp` endpoint not live yet — use stdio.
-- **GitHub**: https://github.com/berkingurcan/stellar-agent-search
-- **npm**: https://www.npmjs.com/package/stellar-agent-search
-- **Connect (Claude Code)**: `npx -y stellar-agent-search@0.1.0 setup --client claude --scope user --handshake`
-- **Tools**: `find_agent`, `rank_agent`, `get_agent_profile`, `list_services`, plus 9 complete-core tools
-- **Companion skills**: `trionlabs/stellar-8004` (`8004stellar` reads, `x402stellar` writes)
-
 ## Oracles
 
 #### Reflector Network

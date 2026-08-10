@@ -287,7 +287,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Stellar Agent Search",
     description:
-      "Register a read-only, keyless stdio MCP server (stellar-agent-search) that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet via natural-language queries. Covers find/rank/profile tools, declared-vs-verified reputation boundaries, self-declared x402/MPP service candidates, and the /prepare-x402-call workflow that stops before signing.",
+      "Read-only, keyless MCP server that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet by natural-language query, stopping before any payment or signing.",
     pathLabel: "berkingurcan/stellar-agent-search",
     copyValue:
       "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
