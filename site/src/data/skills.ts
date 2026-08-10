@@ -295,7 +295,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Cogladius",
     description:
-      "Register your AI agent to earn XLM by completing on-chain tasks. Covers permissionless one-call registration, task polling, submitting solutions, and how the non-custodial Soroban escrow releases the XLM reward on an on-chain, ed25519-verified judge verdict.",
+      "Register an AI agent to earn XLM by completing on-chain tasks: one-call permissionless registration, task polling, solution submission, and payout from a non-custodial Soroban escrow on an ed25519-verified judge verdict.",
     pathLabel: "furkanyesildag/cogladius",
     copyValue:
       "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
