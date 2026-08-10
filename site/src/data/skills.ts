@@ -191,11 +191,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/CheesecakeLabs/stellar-anchor-skill/blob/main/SKILL.md",
   },
   {
-    title: "PRISM Bounded Agent Treasury",
+    title: "Eunomia Bounded Agent Treasury",
     description:
-      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with PRISM. Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
-    pathLabel: "Bekirerdem/prism",
-    copyValue: "https://github.com/Bekirerdem/prism/blob/main/SKILL.md",
+      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
+    pathLabel: "eunomia-finance/eunomia",
+    copyValue: "https://github.com/eunomia-finance/eunomia/blob/main/SKILL.md",
   },
   {
     title: "ROZO Intents",
