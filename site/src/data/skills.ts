@@ -113,14 +113,14 @@ export const SKILL_CARD_SOURCES: readonly SkillCardSource[] = [
     category: "Agentic Payments",
     title: "Agent Payments (x402 + MPP)",
     description:
-      "Charge AI agents for API calls with x402 paywalls or MPP payment channels.",
+      "Charge AI agents for API calls with x402 paywalls or MPP sessions settled over payment channels.",
   },
   {
     source: "skills/zk-proofs/SKILL.md",
     category: "ZK",
     title: "ZK Proofs",
     description:
-      "Verify Groth16 proofs on-chain via BLS12-381, with Circom, Noir, and RISC Zero toolchain walkthroughs.",
+      "Verify Groth16 and UltraHonk proofs on-chain via BLS12-381 and BN254, with Circom, Noir, and RISC Zero toolchain walkthroughs.",
   },
   {
     source: "skills/standards/SKILL.md",
@@ -191,11 +191,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/CheesecakeLabs/stellar-anchor-skill/blob/main/SKILL.md",
   },
   {
-    title: "PRISM Bounded Agent Treasury",
+    title: "Eunomia Bounded Agent Treasury",
     description:
-      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with PRISM. Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
-    pathLabel: "Bekirerdem/prism",
-    copyValue: "https://github.com/Bekirerdem/prism/blob/main/SKILL.md",
+      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
+    pathLabel: "eunomia-finance/eunomia",
+    copyValue: "https://github.com/eunomia-finance/eunomia/blob/main/SKILL.md",
   },
   {
     title: "ROZO Intents",
@@ -299,5 +299,13 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "mpprouter/stellar-agent-wallet-skill",
     copyValue:
       "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
+  },
+  {
+    title: "Stellar Agent Search",
+    description:
+      "Read-only, keyless MCP server that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet by natural-language query, stopping before any payment or signing.",
+    pathLabel: "berkingurcan/stellar-agent-search",
+    copyValue:
+      "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
   },
 ] as const;
