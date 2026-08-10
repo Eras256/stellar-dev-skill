@@ -287,7 +287,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "ROZO Checkout",
     description:
-      "Pay for AI services with Stellar USDC. Settles an OpenRouter Coinbase Payment Link — which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement, with CLI progress, expiry countdown, and balance checks. More AI services coming.",
+      "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI services coming.",
     pathLabel: "RozoAI/rozo-checkout-skill",
     copyValue:
       "https://github.com/RozoAI/rozo-checkout-skill/blob/main/SKILL.md",
@@ -296,7 +296,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "MPP Discover",
     description:
-      "Find and pay 670+ APIs with Stellar USDC through MPP Router. An agent fetches the live service catalog, picks a service — search, scraping, AI inference, market data — and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
+      "Find and pay 670+ APIs with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live service catalog, picks a service, and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
     pathLabel: "mpprouter/stellar-agent-wallet-skill",
     copyValue:
       "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
