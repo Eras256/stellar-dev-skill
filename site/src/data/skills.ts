@@ -284,4 +284,22 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "stellarlight.xyz/scout",
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
   },
+  {
+    title: "ROZO Checkout",
+    description:
+      "Pay for AI services with Stellar USDC. Settles an OpenRouter Coinbase Payment Link — which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement, with CLI progress, expiry countdown, and balance checks. More AI services coming.",
+    pathLabel: "RozoAI/rozo-checkout-skill",
+    copyValue:
+      "https://github.com/RozoAI/rozo-checkout-skill/blob/main/SKILL.md",
+    category: "Ecosystem",
+  },
+  {
+    title: "MPP Discover",
+    description:
+      "Find and pay 670+ APIs with Stellar USDC through MPP Router. An agent fetches the live service catalog, picks a service — search, scraping, AI inference, market data — and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
+    pathLabel: "mpprouter/stellar-agent-wallet-skill",
+    copyValue:
+      "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
+    category: "Ecosystem",
+  },
 ] as const;
