@@ -296,7 +296,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "MPP Discover",
     description:
-      "Find and pay 670+ APIs with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live service catalog, picks a service, and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
+      "Find and pay APIs from 90+ services with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live service catalog, picks a service, and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
     pathLabel: "mpprouter/stellar-agent-wallet-skill",
     copyValue:
       "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
