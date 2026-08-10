@@ -22,6 +22,7 @@ type FilterType =
   | "Assets"
   | "APIs"
   | "ZK"
+  | "Cross-Chain"
   | "Ecosystem";
 
 /**
@@ -36,6 +37,7 @@ export const FILTERS: readonly FilterType[] = [
   "Assets",
   "APIs",
   "ZK",
+  "Cross-Chain",
   "Ecosystem",
 ] as const;
 
@@ -127,6 +129,13 @@ export const SKILL_CARD_SOURCES: readonly SkillCardSource[] = [
     description:
       "Pick the right SEP or CAP for your feature, with ecosystem projects, curated reference links, and MCPs.",
   },
+  {
+    source: "skills/cross-chain/SKILL.md",
+    category: "Cross-Chain",
+    title: "Cross-Chain (CCTP, Axelar)",
+    description:
+      "Bridge native USDC with Circle CCTP, pass messages and tokens with Axelar GMP/ITS, and route intent-based swaps with NEAR Intents.",
+  },
 ] as const;
 
 /**
@@ -182,11 +191,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/CheesecakeLabs/stellar-anchor-skill/blob/main/SKILL.md",
   },
   {
-    title: "PRISM Bounded Agent Treasury",
+    title: "Eunomia Bounded Agent Treasury",
     description:
-      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with PRISM. Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
-    pathLabel: "Bekirerdem/prism",
-    copyValue: "https://github.com/Bekirerdem/prism/blob/main/SKILL.md",
+      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
+    pathLabel: "eunomia-finance/eunomia",
+    copyValue: "https://github.com/eunomia-finance/eunomia/blob/main/SKILL.md",
   },
   {
     title: "ROZO Intents",
@@ -195,6 +204,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "RozoAI/rozo-intents-skills",
     copyValue:
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
+  },
+  {
+    title: "Sozu Testnet USDC Faucet",
+    description:
+      "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
+    pathLabel: "blessedux/agent-skills",
+    copyValue:
+      "https://github.com/blessedux/agent-skills/blob/main/sozu-faucet/SKILL.md",
   },
   {
     title: "LumenLoop MCP Connect",
@@ -266,6 +283,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "Scout the Stellar ecosystem before you build: validate ideas against shipped projects, match open SCF-funded RFPs, draft SCF pitches, find audit firms, and pull cited prior art from 2,000+ indexed repos.",
     pathLabel: "stellarlight.xyz/scout",
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
+  },
+  {
+    title: "Stellar Agent Search",
+    description:
+      "Read-only, keyless MCP server that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet by natural-language query, stopping before any payment or signing.",
+    pathLabel: "berkingurcan/stellar-agent-search",
+    copyValue:
+      "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
   },
   {
     title: "Cogladius",
