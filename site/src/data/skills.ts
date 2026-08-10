@@ -291,7 +291,6 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "RozoAI/rozo-checkout-skill",
     copyValue:
       "https://github.com/RozoAI/rozo-checkout-skill/blob/main/SKILL.md",
-    category: "Ecosystem",
   },
   {
     title: "MPP Discover",
@@ -300,6 +299,5 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "mpprouter/stellar-agent-wallet-skill",
     copyValue:
       "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
-    category: "Ecosystem",
   },
 ] as const;
