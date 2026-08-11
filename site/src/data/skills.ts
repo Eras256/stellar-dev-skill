@@ -285,6 +285,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
   },
   {
+    title: "Sub Rosa",
+    description:
+      "Integrate sealed coordination into Stellar apps with @sub-rosa/sdk: run sealed-bid asset auctions with SAC escrow and atomic lot settlement, confidential proposal rounds, Drand-timed reveal, permissionless lifecycle automation, and verifiable Core v2 receipts.",
+    pathLabel: "karagozemin/Sub-Rosa",
+    copyValue:
+      "https://github.com/karagozemin/Sub-Rosa/blob/main/skills/sub-rosa/SKILL.md",
+  },
+  {
     title: "ROZO Checkout",
     description:
       "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI services coming.",
