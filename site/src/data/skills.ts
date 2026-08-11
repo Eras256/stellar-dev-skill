@@ -22,6 +22,7 @@ type FilterType =
   | "Assets"
   | "APIs"
   | "ZK"
+  | "Cross-Chain"
   | "Ecosystem";
 
 /**
@@ -36,6 +37,7 @@ export const FILTERS: readonly FilterType[] = [
   "Assets",
   "APIs",
   "ZK",
+  "Cross-Chain",
   "Ecosystem",
 ] as const;
 
@@ -111,14 +113,14 @@ export const SKILL_CARD_SOURCES: readonly SkillCardSource[] = [
     category: "Agentic Payments",
     title: "Agent Payments (x402 + MPP)",
     description:
-      "Charge AI agents for API calls with x402 paywalls or MPP payment channels.",
+      "Charge AI agents for API calls with x402 paywalls or MPP sessions settled over payment channels.",
   },
   {
     source: "skills/zk-proofs/SKILL.md",
     category: "ZK",
     title: "ZK Proofs",
     description:
-      "Verify Groth16 proofs on-chain via BLS12-381, with Circom, Noir, and RISC Zero toolchain walkthroughs.",
+      "Verify Groth16 and UltraHonk proofs on-chain via BLS12-381 and BN254, with Circom, Noir, and RISC Zero toolchain walkthroughs.",
   },
   {
     source: "skills/standards/SKILL.md",
@@ -126,6 +128,13 @@ export const SKILL_CARD_SOURCES: readonly SkillCardSource[] = [
     title: "SEPs, CAPs & Ecosystem",
     description:
       "Pick the right SEP or CAP for your feature, with ecosystem projects, curated reference links, and MCPs.",
+  },
+  {
+    source: "skills/cross-chain/SKILL.md",
+    category: "Cross-Chain",
+    title: "Cross-Chain (CCTP, Axelar)",
+    description:
+      "Bridge native USDC with Circle CCTP, pass messages and tokens with Axelar GMP/ITS, and route intent-based swaps with NEAR Intents.",
   },
 ] as const;
 
@@ -182,11 +191,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/CheesecakeLabs/stellar-anchor-skill/blob/main/SKILL.md",
   },
   {
-    title: "PRISM Bounded Agent Treasury",
+    title: "Eunomia Bounded Agent Treasury",
     description:
-      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with PRISM. Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
-    pathLabel: "Bekirerdem/prism",
-    copyValue: "https://github.com/Bekirerdem/prism/blob/main/SKILL.md",
+      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
+    pathLabel: "eunomia-finance/eunomia",
+    copyValue: "https://github.com/eunomia-finance/eunomia/blob/main/SKILL.md",
   },
   {
     title: "ROZO Intents",
@@ -195,6 +204,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "RozoAI/rozo-intents-skills",
     copyValue:
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
+  },
+  {
+    title: "Sozu Testnet USDC Faucet",
+    description:
+      "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
+    pathLabel: "blessedux/agent-skills",
+    copyValue:
+      "https://github.com/blessedux/agent-skills/blob/main/sozu-faucet/SKILL.md",
   },
   {
     title: "LumenLoop MCP Connect",
@@ -274,5 +291,29 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "karagozemin/Sub-Rosa",
     copyValue:
       "https://github.com/karagozemin/Sub-Rosa/blob/feat/core-v2/skills/sub-rosa/SKILL.md",
+  },
+  {
+    title: "ROZO Checkout",
+    description:
+      "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI services coming.",
+    pathLabel: "RozoAI/rozo-checkout-skill",
+    copyValue:
+      "https://github.com/RozoAI/rozo-checkout-skill/blob/main/SKILL.md",
+  },
+  {
+    title: "MPP Discover",
+    description:
+      "Find and pay APIs from 90+ services with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live service catalog, picks a service, and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
+    pathLabel: "mpprouter/stellar-agent-wallet-skill",
+    copyValue:
+      "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
+  },
+  {
+    title: "Stellar Agent Search",
+    description:
+      "Read-only, keyless MCP server that lets an AI agent discover, rank, and vet on-chain Stellar 8004 agents on mainnet by natural-language query, stopping before any payment or signing.",
+    pathLabel: "berkingurcan/stellar-agent-search",
+    copyValue:
+      "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
   },
 ] as const;
