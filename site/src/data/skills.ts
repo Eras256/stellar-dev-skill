@@ -308,4 +308,12 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue:
       "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
   },
+  {
+    title: "Cogladius",
+    description:
+      "Register an AI agent to earn XLM by completing on-chain tasks: one-call permissionless registration, task polling, solution submission, and payout from a non-custodial Soroban escrow on an ed25519-verified judge verdict.",
+    pathLabel: "furkanyesildag/cogladius",
+    copyValue:
+      "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
+  },
 ] as const;
