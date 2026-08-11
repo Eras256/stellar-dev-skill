@@ -290,7 +290,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "Integrate sealed coordination into Stellar apps with @sub-rosa/sdk: run sealed-bid asset auctions with SAC escrow and atomic lot settlement, confidential proposal rounds, Drand-timed reveal, permissionless lifecycle automation, and verifiable Core v2 receipts.",
     pathLabel: "karagozemin/Sub-Rosa",
     copyValue:
-      "https://github.com/karagozemin/Sub-Rosa/blob/feat/core-v2/skills/sub-rosa/SKILL.md",
+      "https://github.com/karagozemin/Sub-Rosa/blob/main/skills/sub-rosa/SKILL.md",
   },
   {
     title: "ROZO Checkout",
