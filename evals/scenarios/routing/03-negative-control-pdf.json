@@ -1,0 +1,9 @@
+{
+  "skills": [],
+  "negative": true,
+  "query": "Help me parse this PDF and extract the tables into CSV.",
+  "expected_behavior": [
+    "No Stellar skill loads for this off-topic query",
+    "The answer contains no unprompted Stellar content"
+  ]
+}

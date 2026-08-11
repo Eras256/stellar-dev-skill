@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "assets"
+  ],
+  "query": "My USDC payment on Stellar keeps failing with op_no_trust. What do I do?",
+  "expected_behavior": [
+    "Diagnoses the missing trustline on the destination account",
+    "Adds a changeTrust operation (or asks the recipient to) before sending",
+    "Adds a check-before-send pattern rather than retrying blindly"
+  ]
+}

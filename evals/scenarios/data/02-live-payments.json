@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "data"
+  ],
+  "query": "Watch for live incoming payments to my Stellar address and react to each one.",
+  "expected_behavior": [
+    "Offers Horizon streaming (SSE) or RPC polling and states the tradeoff (RPC has no native streaming)",
+    "Handles reconnection/cursor resumption so no payments are missed",
+    "Does not invent a WebSocket API for Stellar RPC"
+  ]
+}

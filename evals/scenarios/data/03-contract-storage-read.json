@@ -1,0 +1,13 @@
+{
+  "skills": [
+    "data"
+  ],
+  "query": "Read a value directly from a Stellar smart contract's storage.",
+  "expected_behavior": [
+    "Uses getLedgerEntries with a contractData LedgerKey (correct durability) and decodes with scValToNative",
+    "Mentions the simpler alternative for exposed getters (simulate the getter / queryContract) where applicable"
+  ],
+  "machine_checkable": [
+    "Generated TypeScript passes tsc --noEmit"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "assets"
+  ],
+  "query": "Use USDC inside my Stellar smart contract to accept deposits.",
+  "expected_behavior": [
+    "Uses the Stellar Asset Contract (SAC) for USDC rather than reinventing a token contract",
+    "Derives the contract address for the asset (asset.contractId() / stellar contract id asset)",
+    "Calls it through token::Client (SEP-41 interface)"
+  ]
+}

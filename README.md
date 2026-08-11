@@ -77,16 +77,17 @@ Copy the `skills/` directory contents to your assistant's skills location.
 
 ```
 skills/
-├── smart-contracts/           # Stellar smart contracts — SKILL.md entry + development/testing/security files
-├── dapp/SKILL.md              # Frontend, wallets (Freighter, Wallets Kit), signing, smart accounts
+├── smart-contracts/           # Stellar smart contracts — SKILL.md router + development/testing/security files
+├── dapp/                      # Frontend — SKILL.md router + react / data-fetching / smart-accounts files
 ├── assets/SKILL.md            # Stellar Assets, trustlines, SAC bridge
-├── data/SKILL.md              # Stellar RPC (preferred) + Horizon (legacy), indexing
-├── agentic-payments/SKILL.md  # x402 + MPP (Charge + Channel) for AI/machine payments
-├── zk-proofs/SKILL.md         # ZK verification (BLS12-381 Groth16), Circom/Noir/RISC Zero walkthroughs
-└── standards/SKILL.md         # SEPs, CAPs, ecosystem projects, curated reference links
+├── data/                      # Stellar RPC (preferred) — SKILL.md router + horizon (legacy) file
+├── agentic-payments/          # AI/machine payments — SKILL.md router + x402 / mpp files
+├── zk-proofs/SKILL.md         # ZK verification (BLS12-381/BN254 Groth16, UltraHonk), Circom/Noir/RISC Zero
+├── standards/                 # SEPs & CAPs — SKILL.md router + ecosystem / resources files
+└── cross-chain/               # Cross-chain — SKILL.md router + cctp file
 ```
 
-Each sub-skill is a self-contained Agent Skill with its own frontmatter. Cross-references link related skills (e.g., the `agentic-payments` skill points to `smart-contracts` for the SACs the protocols call, and to `assets` for USDC). The AI reads only the sub-skills relevant to the task at hand.
+Each sub-skill is a self-contained Agent Skill with its own frontmatter. Larger skills follow [Anthropic's progressive-disclosure guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): a sub-500-line `SKILL.md` router with a task-to-file table, plus companion files (one level deep) that load only when the task needs them. Cross-references link related skills (e.g., the `agentic-payments` skill points to `smart-contracts` for the SACs the protocols call, and to `assets` for USDC). The AI reads only the files relevant to the task at hand.
 
 ## Example Prompts
 
@@ -112,6 +113,12 @@ Contributions are welcome! Please ensure any updates reflect current Stellar eco
 - Focus on practical, actionable guidance
 - Include code examples where helpful
 - Cite official documentation when possible
+- Keep each `SKILL.md` body under ~500 lines — move deep dives into companion files routed by the task table
+- When a change touches what a skill teaches, update or add the matching scenario under [`evals/`](evals/README.md) in the same PR
+
+## Evaluations
+
+[`evals/`](evals/README.md) holds ~3 task scenarios per skill (plus cross-skill routing checks and a negative control), each encoding a mistake agents actually make without the skill. Three grading tiers: machine-checkable compile checks, LLM-judged behavior assertions, and skill-trigger checks. See [evals/README.md](evals/README.md) for the format and how to run them.
 
 ## Resources
 

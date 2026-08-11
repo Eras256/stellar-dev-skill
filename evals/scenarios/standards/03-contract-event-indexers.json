@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "standards"
+  ],
+  "query": "What indexers can I use for Stellar smart contract events?",
+  "expected_behavior": [
+    "Names Mercury, SubQuery, and/or Goldsky from the ecosystem catalog",
+    "Links the official indexer directory for the full list",
+    "Reads the ecosystem companion file rather than answering from memory alone"
+  ]
+}

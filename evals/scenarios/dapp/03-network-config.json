@@ -1,0 +1,14 @@
+{
+  "skills": [
+    "dapp"
+  ],
+  "query": "Set up my app's Stellar network configuration so it works on testnet and mainnet.",
+  "expected_behavior": [
+    "Testnet runs without the mainnet RPC env var being set (mainnet env resolved lazily, only when selected)",
+    "Throws a clear error for unknown network names instead of silently defaulting",
+    "Uses a provider-specific mainnet RPC URL rather than inventing a public SDF mainnet RPC"
+  ],
+  "machine_checkable": [
+    "Generated TypeScript passes tsc --noEmit"
+  ]
+}

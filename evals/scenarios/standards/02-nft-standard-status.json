@@ -1,0 +1,10 @@
+{
+  "skills": [
+    "standards"
+  ],
+  "query": "Is there an NFT standard on Stellar, and is it final?",
+  "expected_behavior": [
+    "Names SEP-50 (Non-Fungible Tokens) and reports it as Draft",
+    "Recommends verifying the live status in stellar-protocol before building against it, rather than asserting finality either way"
+  ]
+}

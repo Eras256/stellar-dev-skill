@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "zk-proofs"
+  ],
+  "query": "Design a private airdrop on Stellar where eligible users claim without revealing which allowlist entry they are.",
+  "expected_behavior": [
+    "Validates public-input semantics in the contract (which Merkle root, which recipient, which amount) — not just proof validity",
+    "Uses a nullifier set for anti-replay so each entry claims once",
+    "Separates verifier (cryptographic validity) from policy/application logic"
+  ]
+}
