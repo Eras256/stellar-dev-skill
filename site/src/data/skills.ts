@@ -335,7 +335,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "StellarTools",
     description:
-      "Accept Stellar-native crypto and fiat payments with the @stellartools/core SDK: hosted checkouts, Soroban-enforced subscription billing, webhook verification, and an MCP server for agent-driven customer, product, and payment management.",
+      "Stripe-level payment infrastructure for Stellar. Accept crypto and fiat payments with hosted checkouts, Soroban-powered subscriptions with flexible billing periods, customer portals, and normalized webhooks. Includes WooCommerce and Shopify adapters, an apps marketplace, and an MCP server for agent-driven payment management. ⁠",
     pathLabel: "payrouteshq/stellartools",
     copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
