@@ -324,4 +324,12 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue:
       "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
   },
+  {
+    title: "Soroban Common Mistakes",
+    description:
+      "Review Soroban contracts against 23 recurring security mistakes before shipping: missing authorization, storage and TTL pitfalls, arithmetic overflow, and unsafe panic handling. Ships with a reviewable checklist, a PR template, and a Scout CI workflow. Available in English and Spanish.",
+    pathLabel: "mariaelisaaraya/stellar-security-guide",
+    copyValue:
+      "https://github.com/mariaelisaaraya/stellar-security-guide/blob/main/skills/soroban-common-mistakes/SKILL.md",
+  },
 ] as const;
