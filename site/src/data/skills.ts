@@ -206,6 +206,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
   },
   {
+    title: "Caatinga",
+    description:
+      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment Graph, versioned caatinga.artifacts.json as the source of truth for contract IDs, generated TypeScript bindings, and wallet adapters (Freighter, Stellar Wallets Kit) — with hard rules against raw secret keys on the command line and hand-edited artifacts or bindings.",
+    pathLabel: "Dione-b/caatinga-skill",
+    copyValue:
+      "https://github.com/Dione-b/caatinga-skill/blob/master/skills/caatinga/SKILL.md",
+  },
+  {
     title: "Sozu Testnet USDC Faucet",
     description:
       "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
