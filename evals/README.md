@@ -1,6 +1,6 @@
 # Skill Evaluations
 
-Representative task scenarios for every skill in this repo, following [Anthropic's evaluation-driven skill authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration). Each scenario encodes a mistake an agent actually makes *without* the skill — several come from real failure modes (the #41 compile bugs, documented pitfalls in agentic-payments, the ZK curve trap), not imagined ones. Run them before publishing skill changes so regressions get caught here instead of by users.
+Representative task scenarios for seven of the eight skills in this repo, following [Anthropic's evaluation-driven skill authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration). `cross-chain` landed after this set was written and has no scenarios yet. Each scenario encodes a mistake an agent actually makes *without* the skill — several come from real failure modes (the #41 compile bugs, documented pitfalls in agentic-payments, the ZK curve trap), not imagined ones. Run them before publishing skill changes so regressions get caught here instead of by users.
 
 ## Scenario format
 
@@ -41,9 +41,11 @@ Evals exercise an *agent using the skills*, so the harness is any agent with the
 # 1. Install the skills under test (from your working tree, not the published copy)
 #    e.g. symlink ./skills/* into ~/.claude/skills/ or use the plugin install path in the README
 
-# 2. Run one scenario headlessly and capture the transcript
+# 2. Run one scenario headlessly and capture the transcript.
+#    Plain text output gives only the final answer; tier 3 needs the tool
+#    events, so capture the full event stream instead.
 q=$(python3 -c "import json;print(json.load(open('evals/scenarios/dapp/01-freighter-payment.json'))['query'])")
-claude -p "$q" > /tmp/eval-transcript.txt
+claude -p "$q" --output-format stream-json --verbose > /tmp/eval-transcript.jsonl
 
 # 3. Tier 1 — extract any generated code from the transcript and compile it
 #    Rust:        cargo build --target wasm32v1-none --release
@@ -55,12 +57,15 @@ claude -p "$q" > /tmp/eval-transcript.txt
 #    works well.
 
 # 5. Tier 3 — check the transcript's skill loads: the scenario's `skills` all
-#    loaded, nothing loaded for the negative control.
+#    loaded, nothing loaded for the negative control. The tool-use events in
+#    the stream-json output are what make this checkable.
 ```
 
 ## Baselines: prove each eval discriminates
 
 Before trusting a scenario, run it **without** the skills installed and keep the failing transcript under `evals/baseline/<skill>/<scenario>.md`. That proves the eval discriminates (an unskilled model fails it), and tells us which evals to retire as base models improve — an eval every unskilled model passes measures nothing.
+
+**Status: not done yet.** No baselines are committed, so none of the scenarios here has recorded evidence that an unskilled model actually fails it. Treat the current set as unvalidated until those transcripts land; capturing them is the remaining work on #42.
 
 ## CI guidance
 
