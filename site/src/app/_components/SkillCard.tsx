@@ -28,6 +28,10 @@ export const SkillCard = ({
   headingLevel = 2,
 }: SkillCardProps) => {
   const Heading = headingLevel === 3 ? "h3" : "h2";
+  // Ecosystem cards copy the same URL the header already links to, so the
+  // open-in-new-tab chip would be a second link to one destination. Skill
+  // cards copy the mirrored markdown URL, which nothing else links to.
+  const showOpenLink = copyValue !== sourceUrl;
   return (
     <Card>
       <div className="SkillsCard">
@@ -46,11 +50,24 @@ export const SkillCard = ({
 
         <p className="SkillsCard__description">{description}</p>
 
-        <CopyButton
-          variant="path"
-          value={copyValue}
-          displayValue={pathLabel}
-        />
+        <div className="SkillsCard__pathRow">
+          <CopyButton
+            variant="path"
+            value={copyValue}
+            displayValue={pathLabel}
+          />
+          {showOpenLink && (
+            <a
+              href={copyValue}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${pathLabel} in a new tab`}
+              className="SkillsCard__pathButton SkillsCard__openLink"
+            >
+              <LinkExternal01Icon />
+            </a>
+          )}
+        </div>
       </div>
     </Card>
   );

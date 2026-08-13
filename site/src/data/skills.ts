@@ -206,6 +206,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
   },
   {
+    title: "Caatinga",
+    description:
+      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment Graph, versioned caatinga.artifacts.json as the source of truth for contract IDs, generated TypeScript bindings, and wallet adapters (Freighter, Stellar Wallets Kit) — with hard rules against raw secret keys on the command line and hand-edited artifacts or bindings.",
+    pathLabel: "Dione-b/caatinga-skill",
+    copyValue:
+      "https://github.com/Dione-b/caatinga-skill/blob/master/skills/caatinga/SKILL.md",
+  },
+  {
     title: "Sozu Testnet USDC Faucet",
     description:
       "Claim Circle USDC on Stellar testnet with a PoW-gated CLI, using an existing C…/G… address or a newly generated G… wallet with a USDC trustline.",
@@ -285,6 +293,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
   },
   {
+    title: "Sub Rosa",
+    description:
+      "Integrate sealed coordination into Stellar apps with @sub-rosa/sdk: run sealed-bid asset auctions with SAC escrow and atomic lot settlement, confidential proposal rounds, Drand-timed reveal, permissionless lifecycle automation, and verifiable Core v2 receipts.",
+    pathLabel: "karagozemin/Sub-Rosa",
+    copyValue:
+      "https://github.com/karagozemin/Sub-Rosa/blob/main/skills/sub-rosa/SKILL.md",
+  },
+  {
     title: "ROZO Checkout",
     description:
       "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI services coming.",
@@ -307,5 +323,28 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "berkingurcan/stellar-agent-search",
     copyValue:
       "https://github.com/berkingurcan/stellar-agent-search/blob/main/skills/mcp/SKILL.md",
+  },
+  {
+    title: "Cogladius",
+    description:
+      "Register an AI agent to earn XLM by completing on-chain tasks: one-call permissionless registration, task polling, solution submission, and payout from a non-custodial Soroban escrow on an ed25519-verified judge verdict.",
+    pathLabel: "furkanyesildag/cogladius",
+    copyValue:
+      "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
+  },
+  {
+    title: "Soroban Common Mistakes",
+    description:
+      "Review Soroban contracts against 23 recurring security mistakes before shipping: missing authorization, storage and TTL pitfalls, arithmetic overflow, and unsafe panic handling. Ships with a reviewable checklist, a PR template, and a Scout CI workflow. Available in English and Spanish.",
+    pathLabel: "mariaelisaaraya/stellar-security-guide",
+    copyValue:
+      "https://github.com/mariaelisaaraya/stellar-security-guide/blob/main/skills/soroban-common-mistakes/SKILL.md",
+  },
+  {
+    title: "StellarTools",
+    description:
+      "Stripe-level payment infrastructure for Stellar. Accept crypto and fiat payments with hosted checkouts, Soroban-powered subscriptions with flexible billing periods, customer portals, and normalized webhooks. Includes WooCommerce and Shopify adapters, an apps marketplace, and an MCP server for agent-driven payment management. ⁠",
+    pathLabel: "payrouteshq/stellartools",
+    copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
 ] as const;
