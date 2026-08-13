@@ -332,4 +332,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue:
       "https://github.com/mariaelisaaraya/stellar-security-guide/blob/main/skills/soroban-common-mistakes/SKILL.md",
   },
+  {
+    title: "StellarTools",
+    description:
+      "Stripe-level payment infrastructure for Stellar. Accept crypto and fiat payments with hosted checkouts, Soroban-powered subscriptions with flexible billing periods, customer portals, and normalized webhooks. Includes WooCommerce and Shopify adapters, an apps marketplace, and an MCP server for agent-driven payment management. ⁠",
+    pathLabel: "payrouteshq/stellartools",
+    copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
+  },
 ] as const;
