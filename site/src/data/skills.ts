@@ -208,7 +208,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Caatinga",
     description:
-      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment Graph, versioned caatinga.artifacts.json as the source of truth for contract IDs, generated TypeScript bindings, and wallet adapters (Freighter, Stellar Wallets Kit) — with hard rules against raw secret keys on the command line and hand-edited artifacts or bindings."
+      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment Graph, versioned caatinga.artifacts.json as the source of truth for contract IDs, generated TypeScript bindings, and wallet adapters (Freighter, Stellar Wallets Kit) — with hard rules against raw secret keys on the command line and hand-edited artifacts or bindings.",
     pathLabel: "Dione-b/caatinga-skill",
     copyValue:
       "https://github.com/Dione-b/caatinga-skill/blob/master/skills/caatinga/SKILL.md",
