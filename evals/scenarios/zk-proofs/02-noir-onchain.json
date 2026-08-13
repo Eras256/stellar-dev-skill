@@ -1,0 +1,12 @@
+{
+  "skills": [
+    "zk-proofs"
+  ],
+  "query": "I have a Noir circuit that proves age >= 18. Verify the proof on-chain on Stellar.",
+  "expected_behavior": [
+    "States that Noir's UltraHonk/BN254 output verifies on-chain via the community rs-soroban-ultrahonk verifier, and that it needs Protocol 26+ (CAP-0074 base ops plus CAP-0080 MSM/Fr host functions)",
+    "Flags the verifier's maturity (young, community-maintained — check audit status before mainnet)",
+    "Does not hand-roll a fake UltraHonk verifier contract from scratch",
+    "Offers the alternatives with tradeoffs: re-express the statement as a Circom Groth16 circuit, or the attestation-oracle pattern with its trust assumption stated explicitly"
+  ]
+}

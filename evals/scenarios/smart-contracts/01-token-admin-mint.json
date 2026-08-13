@@ -1,0 +1,16 @@
+{
+  "skills": [
+    "smart-contracts"
+  ],
+  "query": "Write a Stellar smart contract for a token with an admin who can mint new tokens.",
+  "expected_behavior": [
+    "Uses __constructor for initialization, not a guarded initialize() function",
+    "Defines a typed DataKey enum for storage keys",
+    "Calls admin.require_auth() on the mint path",
+    "Uses checked arithmetic (no unchecked add/sub on balances)",
+    "Compiles for the wasm32v1-none target with #![no_std] and soroban-sdk types"
+  ],
+  "machine_checkable": [
+    "Generated contract compiles: cargo build --target wasm32v1-none --release"
+  ]
+}

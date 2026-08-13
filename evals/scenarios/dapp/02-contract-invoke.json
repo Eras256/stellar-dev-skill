@@ -1,0 +1,14 @@
+{
+  "skills": [
+    "dapp"
+  ],
+  "query": "Invoke a method on a deployed Stellar smart contract from the browser and show the result.",
+  "expected_behavior": [
+    "Prefers contract.Client (simulation preview via tx.result, then signAndSend) or the simulate → assemble/prepare → sign → send pipeline",
+    "Polls transaction status (pollTransaction / getTransaction) instead of assuming immediate success",
+    "Does not hand-build ScVals when contract.Client or queryContract would do"
+  ],
+  "machine_checkable": [
+    "Generated TypeScript passes tsc --noEmit"
+  ]
+}

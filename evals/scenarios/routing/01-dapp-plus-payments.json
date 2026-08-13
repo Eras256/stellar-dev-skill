@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "dapp",
+    "agentic-payments"
+  ],
+  "query": "Build a dapp where users pay per API call with USDC on Stellar.",
+  "expected_behavior": [
+    "Loads both the dapp skill (wallet, signing, frontend) and the agentic-payments skill (x402/MPP paywall)",
+    "Splits responsibilities correctly: payment protocol server-side, wallet UX client-side"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "skills": [
+    "agentic-payments"
+  ],
+  "query": "createEd25519Signer throws \"encoded argument must be of type String\" in my x402 client. Why?",
+  "expected_behavior": [
+    "Identifies that the signer takes the raw S... secret string plus a CAIP-2 network ID (stellar:testnet / stellar:pubnet)",
+    "Removes the Keypair.fromSecret wrapping and any getNetworkPassphrase pre-conversion — both are done internally"
+  ]
+}

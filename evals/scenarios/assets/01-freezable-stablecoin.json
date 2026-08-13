@@ -1,0 +1,12 @@
+{
+  "skills": [
+    "assets"
+  ],
+  "query": "Issue a stablecoin on Stellar that we can freeze if a holder's account is compromised.",
+  "expected_behavior": [
+    "Separates issuer and distributor accounts",
+    "Sets AUTH_REQUIRED and AUTH_REVOCABLE flags on the issuer for freeze capability",
+    "Publishes asset metadata via stellar.toml (SEP-1)",
+    "Does not write a custom smart contract when a classic asset with flags does the job"
+  ]
+}

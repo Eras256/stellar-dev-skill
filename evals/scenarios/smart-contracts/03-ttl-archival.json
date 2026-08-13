@@ -1,0 +1,12 @@
+{
+  "skills": [
+    "smart-contracts"
+  ],
+  "query": "My Stellar contract calls started failing after a few weeks of inactivity and its data seems to be missing. What's going on?",
+  "expected_behavior": [
+    "Diagnoses storage TTL expiry / state archival as the cause, not data loss or a network bug",
+    "Distinguishes instance, persistent, and temporary storage lifetimes",
+    "Recommends extend_ttl in hot paths and/or restoring archived entries (RestoreFootprint)",
+    "Does not recommend redeploying the contract as the primary fix"
+  ]
+}

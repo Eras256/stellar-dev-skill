@@ -1,0 +1,15 @@
+{
+  "skills": [
+    "smart-contracts"
+  ],
+  "query": "Add tests to my Stellar contract, including tests that authorization is actually enforced.",
+  "expected_behavior": [
+    "Registers the contract with env.register and a constructor-args tuple (not deprecated register_contract)",
+    "Uses mock_auths or mock_all_auths, paired with an env.auths() assertion that the expected auth was recorded",
+    "Reads the testing companion file (skills/smart-contracts/testing.md) rather than improvising",
+    "Includes a negative test: the call without authorization fails"
+  ],
+  "machine_checkable": [
+    "Generated test module compiles and runs: cargo test"
+  ]
+}

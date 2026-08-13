@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "agentic-payments"
+  ],
+  "query": "My AI agent makes about 500 API calls per session. What's the right way to charge it on Stellar?",
+  "expected_behavior": [
+    "Picks MPP Session mode (channel-backed; historically called Channel mode) — one deposit + one close instead of 500 on-chain transactions",
+    "States that each commitment amount is the cumulative running total, not the per-request price",
+    "Warns that Store.memory() is dev-only and a persistent store is required in production"
+  ]
+}

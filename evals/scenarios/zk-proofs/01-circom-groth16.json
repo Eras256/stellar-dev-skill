@@ -1,0 +1,14 @@
+{
+  "skills": [
+    "zk-proofs"
+  ],
+  "query": "Verify a Circom Groth16 proof on-chain on Stellar.",
+  "expected_behavior": [
+    "Keeps the circuit curve and the verifier contract on the same curve: compiles with -p bls12381 to match the canonical BLS12-381 example verifier, or knowingly pairs default bn128 output with a BN254 verifier (CAP-0074, Protocol 25+)",
+    "Cites CAP-0059 for BLS12-381 availability (Protocol 22+)",
+    "Includes the trusted-setup (powers of tau + phase 2) and off-chain verify sanity step before going on-chain"
+  ],
+  "machine_checkable": [
+    "Referenced stellar contract / snarkjs / circom commands match real CLI syntax"
+  ]
+}

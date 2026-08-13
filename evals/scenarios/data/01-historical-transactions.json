@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "data"
+  ],
+  "query": "Get all transactions for a Stellar account from 3 months ago.",
+  "expected_behavior": [
+    "Recognizes that most RPC methods only cover the retention window (~7 days) and does not query getTransactions for 3-month-old data",
+    "Routes to Horizon full history, Hubble (BigQuery), or a data-lake-backed getLedgers provider",
+    "If getLedgers is proposed, checks getHealth().oldestLedger (or provider retention) first instead of assuming genesis depth"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "skills": [
+    "standards"
+  ],
+  "query": "Which Stellar standard should I use for a fiat on-ramp that needs KYC?",
+  "expected_behavior": [
+    "Names SEP-6 (API-first) or SEP-24 (hosted interactive) for deposit/withdrawal, plus SEP-12 for KYC data",
+    "Explains the API-vs-hosted distinction so the user can pick",
+    "Points at the SEP documents rather than paraphrasing requirements from memory"
+  ]
+}

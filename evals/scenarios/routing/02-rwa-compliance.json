@@ -1,0 +1,12 @@
+{
+  "skills": [
+    "assets",
+    "standards"
+  ],
+  "query": "Tokenize a real-world asset on Stellar with compliance controls.",
+  "expected_behavior": [
+    "Starts from the assets skill (classic asset + authorization flags / SAC), not a custom contract by default",
+    "Consults standards for SEP-57 (T-REX regulated token patterns, Draft) and flags its draft status",
+    "Escalates to a custom contract only for requirements flags cannot express"
+  ]
+}
