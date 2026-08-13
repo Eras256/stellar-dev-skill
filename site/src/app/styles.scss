@@ -484,6 +484,33 @@ h2.SkillsCard__title {
   color: var(--sds-clr-gray-12);
 }
 
+// Copy pill plus the "open in a new tab" chip that sits beside it on a
+// skill card. Wraps on narrow cards so the chip drops under a long path
+// instead of squeezing it.
+.SkillsCard__pathRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: pxToRem(6px);
+  min-width: 0;
+
+  .SkillsCard__pathWrapper {
+    min-width: 0;
+  }
+}
+
+// Anchor styled as a path chip: same background and hover treatment as
+// .SkillsCard__pathButton, minus the link underline.
+.SkillsCard__openLink {
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--sds-clr-lilac-11);
+    outline-offset: 2px;
+  }
+}
+
 .SkillsCard__header {
   display: flex;
   align-items: center;
