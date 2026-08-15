@@ -146,7 +146,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "OpenZeppelin Contracts",
     description:
-      "Scaffold a Stellar smart contract project with OpenZeppelin's audited Stellar contract libraries. Walks through Rust toolchain setup, Stellar CLI install, workspace dependencies, and applying the pausable and ownable macros to your contract.",
+      "Scaffold a Stellar smart contract project with OpenZeppelin's audited Stellar contract libraries. Walks through Rust toolchain setup, Stellar CLI install, workspace dependencies, and apply[...]",
     pathLabel: "OpenZeppelin/openzeppelin-skills",
     copyValue:
       "https://github.com/OpenZeppelin/openzeppelin-skills/blob/main/skills/setup-stellar-contracts/SKILL.md",
@@ -154,7 +154,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "DeFindex SDK",
     description:
-      "Integrate DeFindex vaults on Stellar with the @defindex/sdk TypeScript package. Covers vault deposits and withdrawals, balance and APY queries, programmatic vault creation, and the unsigned-XDR signing pattern for backend and bot integrations.",
+      "Integrate DeFindex vaults on Stellar with the @defindex/sdk TypeScript package. Covers vault deposits and withdrawals, balance and APY queries, programmatic vault creation, and the unsigne[...]",
     pathLabel: "paltalabs/defindex-sdk",
     copyValue:
       "https://github.com/paltalabs/defindex-sdk/blob/main/defindex-sdk-skill.md",
@@ -162,14 +162,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Soroswap SDK",
     description:
-      "Trade on Soroswap DEX from a backend, bot, or swap widget using the @soroswap/sdk TypeScript package. Covers token swaps, liquidity pool operations, price and route queries, API key handling, and signing flows for both server keypairs and browser wallets.",
+      "Trade on Soroswap DEX from a backend, bot, or swap widget using the @soroswap/sdk TypeScript package. Covers token swaps, liquidity pool operations, price and route queries, API key handli[...]",
     pathLabel: "soroswap/sdk",
     copyValue: "https://github.com/soroswap/sdk/blob/main/soroswap-sdk-skill.md",
   },
   {
     title: "Trustless Work Escrow",
     description:
-      "Build escrow and milestone-based payment workflows on Stellar with the Trustless Work platform. Covers single-release and multi-release escrows, trustline configuration, dispute handling, and three integration paths: REST API, React SDK hooks, and pre-built Blocks UI components.",
+      "Build escrow and milestone-based payment workflows on Stellar with the Trustless Work platform. Covers single-release and multi-release escrows, trustline configuration, dispute handling, [...]",
     pathLabel: "Trustless-Work/trustless-work-dev-skill",
     copyValue:
       "https://github.com/Trustless-Work/trustless-work-dev-skill/blob/main/SKILL.md",
@@ -193,14 +193,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Eunomia Bounded Agent Treasury",
     description:
-      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee whitelists, time-bound agent session keys, escrow, x402-gated payments, and Groth16/BN254 ZK compliance proofs verified on-chain.",
+      "Give an AI agent a non-custodial, contract-bounded spending account on Stellar with Eunomia (formerly PRISM). Covers treasury deployment with per-payment and rolling daily limits, payee wh[...]",
     pathLabel: "eunomia-finance/eunomia",
     copyValue: "https://github.com/eunomia-finance/eunomia/blob/main/SKILL.md",
   },
   {
     title: "ROZO Intents",
     description:
-      "Send USDC and USDT across Stellar, Ethereum, Arbitrum, Base, BSC, Polygon, and Solana using natural language. Covers cross-chain bridging, wallet detection, fee estimation, tiered confirmation logic, and QR code payment parsing inside Claude Code.",
+      "Send USDC and USDT across Stellar, Ethereum, Arbitrum, Base, BSC, Polygon, and Solana using natural language. Covers cross-chain bridging, wallet detection, fee estimation, tiered confirma[...]",
     pathLabel: "RozoAI/rozo-intents-skills",
     copyValue:
       "https://github.com/RozoAI/rozo-intents-skills/blob/main/SKILL.md",
@@ -208,7 +208,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Caatinga",
     description:
-      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment Graph, versioned caatinga.artifacts.json as the source of truth for contract IDs, generated TypeScript bindings, and wallet adapters (Freighter, Stellar Wallets Kit) — with hard rules against raw secret keys on the command line and hand-edited artifacts or bindings.",
+      "Deploy and manage Soroban contract lifecycles with the Caatinga CLI (ctg). Covers the init → doctor → build → deploy → generate → invoke workflow, the multi-contract Deployment G[...]",
     pathLabel: "Dione-b/caatinga-skill",
     copyValue:
       "https://github.com/Dione-b/caatinga-skill/blob/master/skills/caatinga/SKILL.md",
@@ -288,14 +288,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Stellar Scout",
     description:
-      "Scout the Stellar ecosystem before you build: validate ideas against shipped projects, match open SCF-funded RFPs, draft SCF pitches, find audit firms, and pull cited prior art from 2,000+ indexed repos.",
+      "Scout the Stellar ecosystem before you build: validate ideas against shipped projects, match open SCF-funded RFPs, draft SCF pitches, find audit firms, and pull cited prior art from 2,000+[...]",
     pathLabel: "stellarlight.xyz/scout",
     copyValue: "https://stellarlight.xyz/skills/stellar-scout.md",
   },
   {
     title: "Sub Rosa",
     description:
-      "Integrate sealed coordination into Stellar apps with @sub-rosa/sdk: run sealed-bid asset auctions with SAC escrow and atomic lot settlement, confidential proposal rounds, Drand-timed reveal, permissionless lifecycle automation, and verifiable Core v2 receipts.",
+      "Integrate sealed coordination into Stellar apps with @sub-rosa/sdk: run sealed-bid asset auctions with SAC escrow and atomic lot settlement, confidential proposal rounds, Drand-timed revea[...]",
     pathLabel: "karagozemin/Sub-Rosa",
     copyValue:
       "https://github.com/karagozemin/Sub-Rosa/blob/main/skills/sub-rosa/SKILL.md",
@@ -303,7 +303,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "ROZO Checkout",
     description:
-      "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI services coming.",
+      "Pay for AI services with Stellar USDC — e.g. OpenRouter and Venice.ai, which cannot take Stellar directly — through a one-time deposit order and automatic invoice settlement. More AI s[...]",
     pathLabel: "RozoAI/rozo-checkout-skill",
     copyValue:
       "https://github.com/RozoAI/rozo-checkout-skill/blob/main/SKILL.md",
@@ -311,7 +311,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "MPP Discover",
     description:
-      "Find and pay APIs from 90+ services with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live service catalog, picks a service, and settles per request. Every verified service is backed by a real paid call with a published Stellar transaction hash.",
+      "Find and pay APIs from 90+ services with Stellar USDC through MPP Router — including OpenAI, Anthropic, DeepSeek, Perplexity, Exa, Firecrawl, and Tavily. An agent fetches the live servic[...]",
     pathLabel: "mpprouter/stellar-agent-wallet-skill",
     copyValue:
       "https://github.com/mpprouter/stellar-agent-wallet-skill/blob/main/skills/discover/SKILL.md",
@@ -327,15 +327,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "Cogladius",
     description:
-      "Register an AI agent to earn XLM by completing on-chain tasks: one-call permissionless registration, task polling, solution submission, and payout from a non-custodial Soroban escrow on an ed25519-verified judge verdict.",
+      "Register an AI agent to earn XLM by completing on-chain tasks: one-call permissionless registration, task polling, solution submission, and payout from a non-custodial Soroban escrow on an[...]",
     pathLabel: "furkanyesildag/cogladius",
-    copyValue:
-      "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
+    copyValue: "https://github.com/furkanyesildag/cogladius/blob/main/SKILL.md",
   },
   {
     title: "Soroban Common Mistakes",
     description:
-      "Review Soroban contracts against 23 recurring security mistakes before shipping: missing authorization, storage and TTL pitfalls, arithmetic overflow, and unsafe panic handling. Ships with a reviewable checklist, a PR template, and a Scout CI workflow. Available in English and Spanish.",
+      "Review Soroban contracts against 23 recurring security mistakes before shipping: missing authorization, storage and TTL pitfalls, arithmetic overflow, and unsafe panic handling. Ships with[...]",
     pathLabel: "mariaelisaaraya/stellar-security-guide",
     copyValue:
       "https://github.com/mariaelisaaraya/stellar-security-guide/blob/main/skills/soroban-common-mistakes/SKILL.md",
@@ -343,16 +342,24 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "StellarTools",
     description:
-      "Stripe-level payment infrastructure for Stellar. Accept crypto and fiat payments with hosted checkouts, Soroban-powered subscriptions with flexible billing periods, customer portals, and normalized webhooks. Includes WooCommerce and Shopify adapters, an apps marketplace, and an MCP server for agent-driven payment management. ⁠",
+      "Stripe-level payment infrastructure for Stellar. Accept crypto and fiat payments with hosted checkouts, Soroban-powered subscriptions with flexible billing periods, customer portals, and n[...]",
     pathLabel: "payrouteshq/stellartools",
     copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
   {
     title: "Nirium Agentic Payments",
     description:
-      "Charge AI agents per API call on Stellar with the Nirium toolkit: scaffold a working x402 seller with nirium-cli in one command, charge per route with x402Serve() from the nirium SDK, and read live protocol data, market state, autonomous loop status, and execution nodes through the nirium-mcp server. Live on mainnet since July 9, 2026.",
+      "Charge AI agents per API call on Stellar with the Nirium toolkit: scaffold a working x402 seller with nirium-cli in one command, charge per route with x402Serve() from the nirium SDK, and [...]",
     pathLabel: "nirium-protocol/nirium-sdk",
     copyValue:
       "https://github.com/nirium-protocol/nirium-sdk/blob/main/skills/nirium-agentic-payments/SKILL.md",
+  },
+  {
+    title: "PMLL",
+    description:
+      "Gives AI agents persistent spatial and hyperdimensional memory on Stellar so they can retain long-term context, form symbiotic memory layers, and maintain durable state across sessions; supports PPM-based context stitching and Context+ pipelines and integrates with supermodeltools/cli for graphing, analysis, and visualization.",
+    pathLabel: "drQedwards/pmll",
+    copyValue:
+      "https://github.com/drQedwards/pmll/blob/main/SKILL.md",
   },
 ] as const;
