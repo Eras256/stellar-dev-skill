@@ -362,4 +362,11 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "drQedwards/pmll",
     copyValue: "https://github.com/drQedwards/pmll/blob/main/SKILL.md",
   },
+  {
+    title: "ppm",
+    description:
+      "PPM-based context stitching and Context+ pipelines and integrates with supermodeltools/cli for graphing, analysis, and visualization.",
+    pathLabel: "drQedwards/ppm",
+    copyValue: "https://github.com/drQedwards/ppm/blob/main/SKILL.md",
+  },
 ] as const;
