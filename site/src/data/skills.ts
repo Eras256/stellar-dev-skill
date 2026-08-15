@@ -347,4 +347,12 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "payrouteshq/stellartools",
     copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
+  {
+    title: "Nirium Agentic Payments",
+    description:
+      "Charge AI agents per API call on Stellar with the Nirium toolkit: scaffold a working x402 seller with nirium-cli in one command, charge per route with x402Serve() from the nirium SDK, and read live protocol data, market state, autonomous loop status, and execution nodes through the nirium-mcp server. Live on mainnet since July 9, 2026.",
+    pathLabel: "nirium-protocol/nirium-sdk",
+    copyValue:
+      "https://github.com/nirium-protocol/nirium-sdk/blob/main/skills/nirium-agentic-payments/SKILL.md",
+  },
 ] as const;
