@@ -348,6 +348,14 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
   {
+    title: "Nirium Agentic Payments",
+    description:
+      "Charge AI agents per API call on Stellar with the Nirium toolkit: scaffold a working x402 seller with nirium-cli in one command, charge per route with x402Serve() from the nirium SDK, and read live protocol data, market state, autonomous loop status, and execution nodes through the nirium-mcp server. Live on mainnet since July 9, 2026.",
+    pathLabel: "nirium-protocol/nirium-sdk",
+    copyValue:
+      "https://github.com/nirium-protocol/nirium-sdk/blob/main/skills/nirium-agentic-payments/SKILL.md",
+  },
+  {
     title: "Contextio SDK",
     description:
       "Integrate contextio-sdk, the typed client for Contextio's non-custodial treasury and payroll API on Stellar. Covers Sign In With Stellar (SEP-53) wallet auth, reading a tenant's treasury/payroll/agent state, triggering an agent proposal, and independently hashing/verifying a Legal Context Protocol (LCP) document.",
