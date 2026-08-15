@@ -347,4 +347,12 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "payrouteshq/stellartools",
     copyValue: "https://github.com/payrouteshq/stellartools/blob/main/SKILL.md",
   },
+  {
+    title: "Contextio SDK",
+    description:
+      "Integrate contextio-sdk, the typed client for Contextio's non-custodial treasury and payroll API on Stellar. Covers Sign In With Stellar (SEP-53) wallet auth, reading a tenant's treasury/payroll/agent state, triggering an agent proposal, and independently hashing/verifying a Legal Context Protocol (LCP) document.",
+    pathLabel: "Eras256/Contextio",
+    copyValue:
+      "https://github.com/Eras256/Contextio/blob/main/packages/sdk/contextio-sdk-skill.md",
+  },
 ] as const;
