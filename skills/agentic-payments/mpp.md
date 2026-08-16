@@ -143,8 +143,8 @@ const mppx = Mppx.create({
   secretKey: process.env.MPP_SECRET_KEY,
   methods: [
     stellar.channel({
-      channel: process.env.CHANNEL_CONTRACT,       // C... contract address
-      commitmentKey: process.env.COMMITMENT_PUBKEY, // 64-char hex ed25519 public key
+      channel: process.env.MPP_CHANNEL_CONTRACT,       // C... contract address
+      commitmentKey: process.env.MPP_COMMITMENT_KEY,   // 64-char hex ed25519 public key
       store: Store.memory(), // dev only — use persistent store in production
       network: "stellar:testnet",
     }),
@@ -204,7 +204,7 @@ import { close } from "@stellar/mpp/channel/server";
 import * as StellarSdk from "@stellar/stellar-sdk";
 
 const txHash = await close({
-  channel: process.env.CHANNEL_CONTRACT,
+  channel: process.env.MPP_CHANNEL_CONTRACT,
   amount: lastCumulativeAmount, // bigint, total USDC owed in base units
   signature: lastCommitmentSignature, // hex string from final commitment
   feePayer: { envelopeSigner: StellarSdk.Keypair.fromSecret(process.env.FEE_PAYER_SECRET) },
@@ -214,7 +214,7 @@ const txHash = await close({
 console.log("Channel closed:", txHash);
 ```
 
-**Env vars (server):** `CHANNEL_CONTRACT`, `COMMITMENT_PUBKEY`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET`
+**Env vars (server):** `MPP_CHANNEL_CONTRACT`, `MPP_COMMITMENT_KEY`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET`
 **Env vars (client):** `COMMITMENT_SECRET`
 
 ## Production patterns
@@ -285,9 +285,18 @@ layers down in the SDK with no context about which env var caused it.
 Charge and Session don't have to be an either/or choice at the code
 level. Give each mode its own `Mppx` instance, initialize it only when
 its full config is present, and let route middleware no-op — not
-throw — when the instance for that intent is `null`:
+throw — when the instance for that intent is `null`. Charge's and
+Session's server adapters both export their namespace as `stellar` (see
+the Charge and Channel server imports above), so combining them in one
+file means aliasing one — here Channel's becomes `stellarChannel`:
 
 ```js
+import { Mppx } from "mppx/express";
+import * as stellar from "@stellar/mpp/charge/server";
+import * as stellarChannel from "@stellar/mpp/channel/server";
+
+// RECIPIENT is the resolveRecipient() result from the pattern above.
+
 const chargeMppx = (RECIPIENT && process.env.MPP_SECRET_KEY)
   ? Mppx.create({ methods: [stellar.charge({ recipient: RECIPIENT, /* ... */ })] })
   : null;
