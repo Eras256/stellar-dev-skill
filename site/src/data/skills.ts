@@ -366,7 +366,7 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
   {
     title: "PMLL",
     description:
-      "Gives AI agents persistent spatial and hyperdimensional memory on Stellar so they can retain long-term context, form symbiotic memory layers, and maintain durable state across sessions; supports PPM-based context stitching and Context+ pipelines and integrates with supermodeltools/cli for graphing, analysis, and visualization.",
+      "Gives AI agents persistent spatial memory so they can retain long-term context, form symbiotic memory layers, and maintain durable state across sessions; supports PPM-based context stitching, Context+ pipelines, and supermodeltools/cli for graphing and analysis. On-chain commitment anchoring on Stellar (32-byte hashes via a Soroban contract) is planned.",
     pathLabel: "drQedwards/pmll",
     copyValue: "https://github.com/drQedwards/pmll/blob/main/SKILL.md",
   },
