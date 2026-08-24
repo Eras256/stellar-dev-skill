@@ -10,26 +10,49 @@
  * (`content-type: text/html`, not `text/plain` or `text/markdown`).
  * Static check, no network calls: catches the mistake at review time
  * instead of relying on a future skills.stellar.org/llms.txt spot check.
+ *
+ * Parses with `URL` and compares `hostname`/`pathname` rather than
+ * matching a fixed-scheme regex, so `http://github.com/...` and
+ * `www.github.com/...` are caught too, not just the canonical
+ * `https://github.com/...` form.
  */
 import { ECOSYSTEM_CARDS } from "../src/data/skills.ts";
 
-const BLOB_PATTERN = /^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\//;
-
-const offenders = ECOSYSTEM_CARDS.filter((c) => BLOB_PATTERN.test(c.copyValue));
-
-if (offenders.length > 0) {
-  console.error(
-    `[check-ecosystem-links] ${offenders.length} ECOSYSTEM_CARDS entr${offenders.length === 1 ? "y uses" : "ies use"} a github.com/.../blob/... copyValue instead of raw.githubusercontent.com:`,
-  );
-  for (const c of offenders) {
-    console.error(`  - "${c.title}": ${c.copyValue}`);
+export function isGithubBlobUrl(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
   }
-  console.error(
-    "\nRewrite as https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path>.",
-  );
-  process.exit(1);
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    return false;
+  }
+  const host = url.hostname.toLowerCase().replace(/^www\./, "");
+  return host === "github.com" && /^\/[^/]+\/[^/]+\/blob\//.test(url.pathname);
 }
 
-console.log(
-  `[check-ecosystem-links] ${ECOSYSTEM_CARDS.length} entries checked, no blob-URL copyValue found`,
-);
+function main() {
+  const offenders = ECOSYSTEM_CARDS.filter((c) => isGithubBlobUrl(c.copyValue));
+
+  if (offenders.length > 0) {
+    console.error(
+      `[check-ecosystem-links] ${offenders.length} ECOSYSTEM_CARDS entr${offenders.length === 1 ? "y uses" : "ies use"} a github.com/.../blob/... copyValue instead of raw.githubusercontent.com:`,
+    );
+    for (const c of offenders) {
+      console.error(`  - "${c.title}": ${c.copyValue}`);
+    }
+    console.error(
+      "\nRewrite as https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path>.",
+    );
+    process.exit(1);
+  }
+
+  console.log(
+    `[check-ecosystem-links] ${ECOSYSTEM_CARDS.length} entries checked, no blob-URL copyValue found`,
+  );
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
