@@ -15,8 +15,14 @@ name: Site CI for fork PRs
 # here (dependency postinstall hooks, the build itself) can only waste
 # this runner's minutes.
 #
-# `workflow_dispatch` exists so a maintainer can produce the same
-# evidence for fork PRs opened before this workflow landed.
+# There is intentionally NO workflow_dispatch trigger: a manual
+# dispatch would execute fork code in a trusted (default-branch)
+# context, where its cache writes land in default-branch scope and can
+# be restored later by write-capable workflows. To produce evidence for
+# a fork PR opened before this workflow landed, close and reopen the PR
+# (or have the author push): the `reopened` event re-runs this check in
+# the untrusted pull_request context. First-time contributors' runs
+# still wait for a maintainer's "Approve and run" click, as usual.
 
 on:
   pull_request:
@@ -30,18 +36,12 @@ on:
       - "skills/**"
       - "site/**"
       - ".github/workflows/site-ci-fork.yml"
-  workflow_dispatch:
-    inputs:
-      pr:
-        description: 'PR number to check (builds refs/pull/<N>/head)'
-        required: true
-        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: site-ci-${{ github.event.pull_request.number || inputs.pr }}
+  group: site-ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 defaults:
@@ -51,8 +51,8 @@ defaults:
 jobs:
   site-ci:
     # Internal PRs already get these checks from `preview-pr.yml`; only
-    # fork PRs (and manual dispatches) need this job.
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name != github.repository
+    # fork PRs need this job.
+    if: github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -61,7 +61,7 @@ jobs:
       # what was pushed.
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', inputs.pr) || github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
           # Drop the token from .git/config once the fetch is done. The
           # token is read-only on a public repo, so it grants nothing an
           # anonymous clone lacks, but this leaves the checkout with
