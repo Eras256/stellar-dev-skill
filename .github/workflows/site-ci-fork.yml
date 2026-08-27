@@ -1,0 +1,74 @@
+name: Site CI for fork PRs
+
+# Secretless lint/type/build check for the PRs `preview-pr.yml` skips.
+#
+# The preview workflow deliberately excludes fork PRs: it needs a write
+# token to push to `gh-pages` and comment, and fork code must never run
+# next to write access. That leaves fork PRs with no CI evidence that
+# the site still lints and builds, so a reviewer has to build the
+# branch locally before merging site changes.
+#
+# This job closes that gap safely. It runs the same checks the preview
+# runs (install, lint, lint:ts, build) but holds nothing an attacker
+# could take: no secrets are referenced, and `permissions` limits the
+# GITHUB_TOKEN to read-only contents access. Untrusted code executed
+# here (dependency postinstall hooks, the build itself) can only waste
+# this runner's minutes.
+#
+# `workflow_dispatch` exists so a maintainer can produce the same
+# evidence for fork PRs opened before this workflow landed.
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['site/**']
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: 'PR number to check (builds refs/pull/<N>/head)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-ci-${{ github.event.pull_request.number || inputs.pr }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: site
+
+jobs:
+  site-ci:
+    # Internal PRs already get these checks from `preview-pr.yml`; only
+    # fork PRs (and manual dispatches) need this job.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Build the PR head, not the auto-generated merge commit, for the
+      # same reason as preview-pr.yml: the evidence should match exactly
+      # what was pushed.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', inputs.pr) || github.event.pull_request.head.sha }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+
+      - run: pnpm lint:ts
+
+      - run: pnpm build
