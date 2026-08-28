@@ -53,6 +53,12 @@ function main() {
   );
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// `import.meta.filename` (raw filesystem path) compared directly against
+// `process.argv[1]`, not `import.meta.url` against a hand-built `file://`
+// string: a checkout path needing URL-encoding (spaces, non-ASCII) would
+// make `import.meta.url` percent-encode while `process.argv[1]` stays
+// literal, so the comparison would silently never match, main() would
+// never run, and the script would exit 0 having checked nothing.
+if (import.meta.filename === process.argv[1]) {
   main();
 }
