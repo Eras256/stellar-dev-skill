@@ -252,7 +252,7 @@ free once the server is up. Those are two separate failure surfaces:
 booting and billing.
 
 ```js
-import { Keypair } from "@stellar/stellar-sdk";
+import { Keypair, StrKey } from "@stellar/stellar-sdk";
 
 function resolveRecipient() {
   let raw = (process.env.STELLAR_RECIPIENT || "").trim().replace(/['"]/g, "");
@@ -270,6 +270,15 @@ function resolveRecipient() {
       return "";
     }
   }
+
+  // A typo'd G... (wrong length, bad checksum) used to reach the SDK
+  // unvalidated and throw several frames deep in Mppx.create(), away from
+  // the env var that actually caused it. Fail here instead, with context.
+  if (!StrKey.isValidEd25519PublicKey(raw)) {
+    console.error(`STELLAR_RECIPIENT is not a valid Stellar public key — disabling MPP: ${raw.slice(0, 8)}...`);
+    return "";
+  }
+
   return raw;
 }
 
