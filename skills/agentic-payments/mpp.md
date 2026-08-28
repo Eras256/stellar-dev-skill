@@ -138,13 +138,30 @@ import express from "express";
 import { Mppx } from "mppx/express";
 import { Store } from "mppx/server";
 import * as stellar from "@stellar/mpp/channel/server";
+import { StrKey } from "@stellar/stellar-sdk";
+
+const USDC_SAC_TESTNET = "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA";
+
+// commitmentKey must be a Stellar G... address (or a Keypair) — never raw
+// ed25519 bytes. MPP_COMMITMENT_KEY is generated and stored as 64-char hex
+// (see the testnet runbook), so re-encode it before handing it to the library.
+const commitmentKey = StrKey.encodeEd25519PublicKey(
+  Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex") // 64-char hex ed25519 public key
+);
 
 const mppx = Mppx.create({
   secretKey: process.env.MPP_SECRET_KEY,
   methods: [
     stellar.channel({
       channel: process.env.MPP_CHANNEL_CONTRACT,       // C... contract address
-      commitmentKey: process.env.MPP_COMMITMENT_KEY,   // 64-char hex ed25519 public key
+      commitmentKey,
+      // Both optional but strongly recommended: the channel contract is
+      // deployed out-of-band, so without these the library can't reject a
+      // channel that would settle to someone else's account or pay out in
+      // the wrong token — it only logs a startup warning and trusts the
+      // on-chain contract.
+      recipient: process.env.STELLAR_RECIPIENT,        // reused from charge mode
+      currency: USDC_SAC_TESTNET,
       store: Store.memory(), // dev only — use persistent store in production
       network: "stellar:testnet",
     }),
@@ -214,7 +231,7 @@ const txHash = await close({
 console.log("Channel closed:", txHash);
 ```
 
-**Env vars (server):** `MPP_CHANNEL_CONTRACT`, `MPP_COMMITMENT_KEY`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET`
+**Env vars (server):** `MPP_CHANNEL_CONTRACT`, `MPP_COMMITMENT_KEY`, `STELLAR_RECIPIENT`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET`
 **Env vars (client):** `COMMITMENT_SECRET`
 
 ## Production patterns
@@ -304,6 +321,7 @@ file means aliasing one — here Channel's becomes `stellarChannel`:
 import { Mppx } from "mppx/express";
 import * as stellar from "@stellar/mpp/charge/server";
 import * as stellarChannel from "@stellar/mpp/channel/server";
+import { StrKey } from "@stellar/stellar-sdk";
 
 // RECIPIENT is the resolveRecipient() result from the pattern above.
 
@@ -317,7 +335,24 @@ const sessionMppx = (
   RECIPIENT &&
   process.env.MPP_SECRET_KEY
 )
-  ? Mppx.create({ methods: [stellarChannel.channel({ channel: process.env.MPP_CHANNEL_CONTRACT, /* ... */ })] })
+  ? Mppx.create({
+      methods: [
+        stellarChannel.channel({
+          channel: process.env.MPP_CHANNEL_CONTRACT,
+          // Same hex -> G-address re-encoding as the Session server example
+          // above — MPP_COMMITMENT_KEY is stored as hex, the library wants
+          // a G... address (or a Keypair), never raw bytes.
+          commitmentKey: StrKey.encodeEd25519PublicKey(
+            Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex")
+          ),
+          // Strongly recommended, not just optional: RECIPIENT is already a
+          // precondition to reach this branch, so wire it through instead of
+          // leaving the channel's payout address unverified against it.
+          recipient: RECIPIENT,
+          /* ... */
+        }),
+      ],
+    })
   : null;
 
 export const isSessionEnabled = () => !!sessionMppx;
@@ -451,11 +486,18 @@ npm install @stellar/mpp mppx @stellar/stellar-sdk
 
 **Session mode only:**
 4. Deploy the one-way-channel contract (see [stellar-mpp-sdk](https://github.com/stellar/stellar-mpp-sdk) for deploy script)
-5. Generate a 64-char hex ed25519 seed for the commitment key:
+5. Generate a 64-char hex ed25519 seed for the commitment key — this value
+   is `COMMITMENT_SECRET`, kept on the **client** only:
    ```bash
    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
-6. Derive the public key and fund the channel with USDC before making requests
+6. Derive the corresponding public key from that same seed — this is
+   `MPP_COMMITMENT_KEY`, what the **server** holds, stored as hex the same
+   way (the server code above re-encodes it to a G... address at startup):
+   ```bash
+   node -e "const {Keypair}=require('@stellar/stellar-sdk');const seed=Buffer.from(process.argv[1],'hex');console.log(Keypair.fromRawEd25519Seed(seed).rawPublicKey().toString('hex'))" <COMMITMENT_SECRET>
+   ```
+   Then fund the channel with USDC before making requests.
 
 ## Common pitfalls
 

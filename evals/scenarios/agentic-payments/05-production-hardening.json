@@ -7,6 +7,8 @@
     "Wraps recipient resolution so the process never throws at import time: recovers when a secret key (S...) was pasted where the public key belongs by deriving the public key and warning loudly, and disables the affected middleware (not the process) when the value is unset or unparseable",
     "Gives Charge and Session mode separate Mppx instances, each initialized only when its own full config is present, so adding Session later is additive, not a rewrite",
     "Fails CLOSED per request when an intent's own instance is null — the route middleware returns a non-200 (e.g. 503), never a plain next() that lets the route respond with its normal content unpriced",
-    "Exposes a runtime /info endpoint reporting each intent's true initialized state (enabled: !!instance), not a static capability list, and does not call it a health check — it reports configuration/initialization state, not whether the RPC or facilitator it depends on is currently reachable"
+    "Exposes a runtime /info endpoint reporting each intent's true initialized state (enabled: !!instance), not a static capability list, and does not call it a health check — it reports configuration/initialization state, not whether the RPC or facilitator it depends on is currently reachable",
+    "For Session mode's commitmentKey, converts the stored hex (MPP_COMMITMENT_KEY) into a Stellar G... address before passing it to stellar.channel() — the library validates it as a Stellar address, not raw ed25519 bytes",
+    "Wires recipient and currency into stellar.channel()'s config when available, not just channel and commitmentKey — both are optional in the library's types but exist specifically so it can reject a channel that would settle to the wrong account or pay out the wrong token"
   ]
 }
