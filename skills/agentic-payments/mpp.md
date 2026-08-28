@@ -332,6 +332,8 @@ import * as stellar from "@stellar/mpp/charge/server";
 import * as stellarChannel from "@stellar/mpp/channel/server";
 import { StrKey } from "@stellar/stellar-sdk";
 
+const USDC_SAC_TESTNET = "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA";
+
 // RECIPIENT is the resolveRecipient() result from the pattern above.
 
 const chargeMppx = (RECIPIENT && process.env.MPP_SECRET_KEY)
@@ -358,6 +360,7 @@ const sessionMppx = (
           // precondition to reach this branch, so wire it through instead of
           // leaving the channel's payout address unverified against it.
           recipient: RECIPIENT,
+          currency: USDC_SAC_TESTNET,
           /* ... */
         }),
       ],
@@ -502,9 +505,12 @@ npm install @stellar/mpp mppx @stellar/stellar-sdk
    ```
 6. Derive the corresponding public key from that same seed — this is
    `MPP_COMMITMENT_KEY`, what the **server** holds, stored as hex the same
-   way (the server code above re-encodes it to a G... address at startup):
+   way (the server code above re-encodes it to a G... address at startup).
+   Export the seed from step 5 first, then read it from the environment
+   rather than passing it as a bare CLI argument:
    ```bash
-   node -e "const {Keypair}=require('@stellar/stellar-sdk');const seed=Buffer.from(process.argv[1],'hex');console.log(Keypair.fromRawEd25519Seed(seed).rawPublicKey().toString('hex'))" <COMMITMENT_SECRET>
+   export COMMITMENT_SECRET="<64-char hex from step 5>"
+   node -e "const {Keypair}=require('@stellar/stellar-sdk');const seed=Buffer.from(process.env.COMMITMENT_SECRET,'hex');console.log(Keypair.fromRawEd25519Seed(seed).rawPublicKey().toString('hex'))"
    ```
    Then fund the channel with USDC before making requests.
 
