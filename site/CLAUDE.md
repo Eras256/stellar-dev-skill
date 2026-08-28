@@ -50,8 +50,11 @@ client component.
   `@stellar/design-system`. No headers function (GitHub Pages doesn't
   set response headers), no middleware.
 
-There is no routing beyond `/`, no API routes, no backend, no test
-runner.
+There is no routing beyond `/`, no API routes, no backend. There is a
+minimal test runner: Node's own built-in `node:test`, used only for
+pure logic in `scripts/` and `src/lib/` (`check-ecosystem-links.mjs`,
+`ecosystem-source-url.mjs`), zero new dependencies. Still no Jest,
+Playwright, or component-level testing; see "Don't add" below.
 
 ## Quick reference
 
@@ -62,6 +65,8 @@ pnpm lint               # eslint
 pnpm lint:ts            # tsc --noEmit
 pnpm sync:skills        # refresh public/skills/ from ../skills/
 pnpm generate:llms-txt  # regenerate public/llms.txt
+pnpm check:ecosystem-links # gate: reject a blob-URL ECOSYSTEM_CARDS copyValue
+pnpm test:ecosystem-links  # node --test for the two scripts above
 ```
 
 ## Adding a skill

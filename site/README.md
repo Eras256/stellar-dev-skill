@@ -27,6 +27,8 @@ pnpm lint               # eslint
 pnpm lint:ts            # tsc --noEmit
 pnpm sync:skills        # refresh public/skills/ from ../skills/
 pnpm generate:llms-txt  # regenerate public/llms.txt
+pnpm check:ecosystem-links # gate: reject a blob-URL ECOSYSTEM_CARDS copyValue
+pnpm test:ecosystem-links  # node --test for the two scripts above
 ```
 
 ## How content stays in sync
