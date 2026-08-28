@@ -372,7 +372,7 @@ initialized and billing; Session mode's instance is `null` there today,
 by choice — it requires deploying and funding a channel contract per
 deployment, a step that carries custody implications worth a compliance
 pass before turning on for a given business. Session works the same way
-Charge does once its four env vars are set; nothing in the server code
+Charge does once its five env vars are set; nothing in the server code
 changes when you flip it on later. What this pattern buys you is
 shipping Charge on day one without a rewrite pending.
 
