@@ -7,8 +7,8 @@
     "Switches to paymentMiddlewareFromConfig from @x402/express with a single route-keyed object (keys like \"GET /signals\") instead of one paymentMiddleware/x402ResourceServer call per route",
     "States that a request whose method+path doesn't match any key falls through to next() unpriced, not a 402 or an error",
     "Puts description (and mimeType, when set) at the route-config level, not nested inside accepts — PaymentOption has no description field, so nesting it there compiles but the 402 response serves it empty",
-    "Does not crash the process at startup when the recipient/payTo env var is unset — wraps middleware initialization in a check instead",
-    "Sets an explicit fallback for the facilitator URL (e.g. process.env.FACILITATOR_URL ?? \"https://channels.openzeppelin.com/x402/testnet\") rather than passing an unset env var straight through — @x402/core's HTTPFacilitatorClient silently falls back to its own DEFAULT_FACILITATOR_URL (https://x402.org/facilitator) otherwise, a generic facilitator with no Stellar scheme support"
+    "Does not crash the process at startup when the recipient/payTo env var is unset — wraps middleware initialization in a check instead, and fails CLOSED per request: a request matching one of the configured paid route keys gets a 503, not a silent 200; a request matching no key still falls through to next() as usual",
+    "Sets an explicit fallback for the facilitator URL (e.g. process.env.FACILITATOR_URL ?? \"https://channels.openzeppelin.com/x402/testnet\") rather than passing an unset env var straight through — @x402/core's HTTPFacilitatorClient silently falls back to its own DEFAULT_FACILITATOR_URL (https://x402.org/facilitator) otherwise, and while that facilitator does support stellar:testnet, an unset env var still sends the OZ_API_KEY Bearer token to the wrong operator and has no stellar:pubnet entry at all for a mainnet deployment"
   ],
   "machine_checkable": [
     "Generated server passes tsc --noEmit / node --check against @x402/express, @x402/core, @x402/stellar"
