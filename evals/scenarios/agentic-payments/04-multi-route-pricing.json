@@ -1,0 +1,15 @@
+{
+  "skills": [
+    "agentic-payments"
+  ],
+  "query": "I have three x402-protected Express routes (GET /signals, GET /market, POST /execute), each at a different USDC price, all behind the same OZ Channels facilitator. Right now I'm calling paymentMiddleware separately for each one. Is there a cleaner way?",
+  "expected_behavior": [
+    "Switches to paymentMiddlewareFromConfig from @x402/express with a single route-keyed object (keys like \"GET /signals\") instead of one paymentMiddleware/x402ResourceServer call per route",
+    "States that a request whose method+path doesn't match any key falls through to next() unpriced, not a 402 or an error",
+    "Puts description (and mimeType, when set) at the route-config level, not nested inside accepts — PaymentOption has no description field, so nesting it there compiles but the 402 response serves it empty",
+    "Does not crash the process at startup when the recipient/payTo env var is unset — wraps middleware initialization in a check instead"
+  ],
+  "machine_checkable": [
+    "Generated server passes tsc --noEmit / node --check against @x402/express, @x402/core, @x402/stellar"
+  ]
+}

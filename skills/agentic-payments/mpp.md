@@ -223,14 +223,16 @@ Three patterns for running Charge and Session behind the same server,
 verified against a service that's been billing real USDC over MPP Charge
 in production since before this skill existed.
 
-### Recipient resolution (fail open, not crash)
+### Recipient resolution (recover at boot, fail closed per request)
 
 Two failure modes hit real deployments: `STELLAR_RECIPIENT` isn't set
 yet (CI, a fresh environment before secrets are provisioned), or it's
 set to the wrong value — a secret key (`S...`) pasted where the public
 key belongs, which happens more than you'd expect when a platform's env
 var UI doesn't visually distinguish the two. Neither should crash the
-server at import time.
+server at import time — but neither should let a paid route respond for
+free once the server is up. Those are two separate failure surfaces:
+booting and billing.
 
 ```js
 import { Keypair } from "@stellar/stellar-sdk";
@@ -263,12 +265,17 @@ if (RECIPIENT && process.env.MPP_SECRET_KEY) {
   console.warn("MPP_SECRET_KEY or STELLAR_RECIPIENT not set — MPP charge middleware disabled");
 }
 
-// Every route's middleware checks the instance, not the env var directly:
+// Every route's middleware checks the instance, not the env var directly.
+// Fail CLOSED here, not open: a rotated secret or a misconfigured deploy
+// must never turn a paid route into a free one. `next()` would let the
+// route respond with its normal 200 and no charge at all — indistinguishable
+// from a bug, and silent.
 export function mppChargeMiddleware(amount, description) {
   return async (req, res, next) => {
     if (!chargeMppx) {
       res.setHeader("X-MPP-Warning", "MPP not configured on this server");
-      return next(); // route still responds — unpriced, not broken
+      res.status(503).json({ error: "MPP charge unavailable — payment middleware not initialized" });
+      return;
     }
     // ... normal charge flow
   };
@@ -277,15 +284,18 @@ export function mppChargeMiddleware(amount, description) {
 
 The `S...`-key recovery is the case worth stealing even if you don't
 need the rest: it turns a silent misconfiguration into a loud warning
-plus a working server, instead of a `Keypair.fromPublicKey` throw three
-layers down in the SDK with no context about which env var caused it.
+plus an explicit `503`, instead of either a `Keypair.fromPublicKey` throw
+three layers down in the SDK with no context about which env var caused
+it, or — worse — a paid route quietly serving its content for free
+because there was nothing left to charge against it.
 
 ### Optional dual-intent server
 
 Charge and Session don't have to be an either/or choice at the code
 level. Give each mode its own `Mppx` instance, initialize it only when
-its full config is present, and let route middleware no-op — not
-throw — when the instance for that intent is `null`. Charge's and
+its full config is present, and let each intent's own middleware fail
+closed — never throw, and never let the route respond for free — when
+the instance for that intent is `null`. Charge's and
 Session's server adapters both export their namespace as `stellar` (see
 the Charge and Channel server imports above), so combining them in one
 file means aliasing one — here Channel's becomes `stellarChannel`:
@@ -322,13 +332,17 @@ Charge does once its four env vars are set; nothing in the server code
 changes when you flip it on later. What this pattern buys you is
 shipping Charge on day one without a rewrite pending.
 
-### Runtime status endpoint (`/info`)
+### Runtime configuration-status endpoint (`/info`)
 
-Not the OpenAPI discovery document below — this is a lighter, unauthenticated
-health check specific to this server's own deployment. A client (human or
-agent) shouldn't have to guess which intents are live. Report the true
-runtime state, not a static capability list — `enabled` reflects whether
-the instance actually initialized, which is also a live health check:
+Not the OpenAPI discovery document below, and not a health check either —
+call it that and a caller will expect it to confirm the Soroban RPC, the
+facilitator, and the store backend it depends on are actually reachable
+right now. It doesn't: it only reports whether each intent's `Mppx`
+instance was constructed at startup, which is configuration state, not
+live dependency health. A client (human or agent) shouldn't have to guess
+which intents are live. Report the true initialization state, not a
+static capability list — `enabled` reflects whether the instance actually
+initialized:
 
 ```js
 app.get("/info", (_req, res) => {
@@ -350,7 +364,7 @@ app.get("/info", (_req, res) => {
 ```
 
 An agent that reads this before its first request can pick a working
-intent instead of finding out from a 500 that Session was never
+intent instead of finding out from a 503 that Session was never
 configured.
 
 ## Discovery: let agents find your paid API
