@@ -145,9 +145,15 @@ const USDC_SAC_TESTNET = "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDA
 // commitmentKey must be a Stellar G... address (or a Keypair) — never raw
 // ed25519 bytes. MPP_COMMITMENT_KEY is generated and stored as 64-char hex
 // (see the testnet runbook), so re-encode it before handing it to the library.
-const commitmentKey = StrKey.encodeEd25519PublicKey(
-  Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex") // 64-char hex ed25519 public key
-);
+// StrKey.encodeEd25519PublicKey() does not validate its input length — a
+// truncated or malformed hex value still encodes to something that looks
+// like a G... address (just the wrong one) instead of throwing, so check
+// the byte length first.
+const commitmentKeyBytes = Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex");
+if (commitmentKeyBytes.length !== 32) {
+  throw new Error(`MPP_COMMITMENT_KEY must be 32 bytes (64 hex chars), got ${commitmentKeyBytes.length}`);
+}
+const commitmentKey = StrKey.encodeEd25519PublicKey(commitmentKeyBytes);
 
 const mppx = Mppx.create({
   secretKey: process.env.MPP_SECRET_KEY,
@@ -340,9 +346,23 @@ const chargeMppx = (RECIPIENT && process.env.MPP_SECRET_KEY)
   ? Mppx.create({ methods: [stellar.charge({ recipient: RECIPIENT, /* ... */ })] })
   : null;
 
+// Same hex -> G-address re-encoding and 32-byte length check as the Session
+// server example above — computed once, before the gate below, so a
+// malformed MPP_COMMITMENT_KEY throws with context instead of
+// StrKey.encodeEd25519PublicKey() silently encoding the wrong bytes into
+// something that still looks like a G... address.
+let commitmentKey;
+if (process.env.MPP_COMMITMENT_KEY) {
+  const bytes = Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex");
+  if (bytes.length !== 32) {
+    throw new Error(`MPP_COMMITMENT_KEY must be 32 bytes (64 hex chars), got ${bytes.length}`);
+  }
+  commitmentKey = StrKey.encodeEd25519PublicKey(bytes);
+}
+
 const sessionMppx = (
   process.env.MPP_CHANNEL_CONTRACT &&
-  process.env.MPP_COMMITMENT_KEY &&
+  commitmentKey &&
   RECIPIENT &&
   process.env.MPP_SECRET_KEY
 )
@@ -350,12 +370,7 @@ const sessionMppx = (
       methods: [
         stellarChannel.channel({
           channel: process.env.MPP_CHANNEL_CONTRACT,
-          // Same hex -> G-address re-encoding as the Session server example
-          // above — MPP_COMMITMENT_KEY is stored as hex, the library wants
-          // a G... address (or a Keypair), never raw bytes.
-          commitmentKey: StrKey.encodeEd25519PublicKey(
-            Buffer.from(process.env.MPP_COMMITMENT_KEY, "hex")
-          ),
+          commitmentKey,
           // Strongly recommended, not just optional: RECIPIENT is already a
           // precondition to reach this branch, so wire it through instead of
           // leaving the channel's payout address unverified against it.
