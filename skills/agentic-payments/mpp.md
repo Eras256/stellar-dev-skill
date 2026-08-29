@@ -342,6 +342,7 @@ file means aliasing one — here Channel's becomes `stellarChannel`:
 
 ```js
 import { Mppx } from "mppx/express";
+import { Store } from "mppx/server";
 import * as stellar from "@stellar/mpp/charge/server";
 import * as stellarChannel from "@stellar/mpp/channel/server";
 import { Keypair, StrKey } from "@stellar/stellar-sdk";
@@ -375,20 +376,31 @@ if (process.env.MPP_COMMITMENT_KEY) {
   }
 }
 
+// Same pattern as commitmentKey above: validate the raw string before
+// handing it to Keypair.fromSecret(), which throws on a malformed secret
+// key. Unvalidated, that throw happens inside the Mppx.create() call
+// below — at import time, taking chargeMppx down with it. Unlike Charge
+// (where feePayer is genuinely optional — see the ternary in the Charge
+// server example above), Session's own env var list two sections up
+// already lists FEE_PAYER_SECRET without "(optional)", and
+// channel.Parameters' own doc comment says feePayer is "Required when
+// handling close credential actions" — so this validates it, rather than
+// treating it as optional the way Charge's ternary does.
+let feePayerSigner;
+if (process.env.FEE_PAYER_SECRET) {
+  if (StrKey.isValidEd25519SecretSeed(process.env.FEE_PAYER_SECRET)) {
+    feePayerSigner = Keypair.fromSecret(process.env.FEE_PAYER_SECRET);
+  } else {
+    console.error("FEE_PAYER_SECRET is not a valid Stellar secret key — Session mode disabled, Charge unaffected");
+  }
+}
+
 const sessionMppx = (
   process.env.MPP_CHANNEL_CONTRACT &&
   commitmentKey &&
   RECIPIENT &&
   process.env.MPP_SECRET_KEY &&
-  // Unlike Charge (where feePayer is genuinely optional — see the ternary
-  // in the Charge server example above), Session's own env var list two
-  // sections up already lists FEE_PAYER_SECRET without "(optional)", and
-  // channel.Parameters' own doc comment says feePayer is "Required when
-  // handling close credential actions." Leaving it out of this gate let
-  // sessionMppx construct successfully, isSessionEnabled() report true,
-  // and /info advertise Session as live — right up until close() actually
-  // ran and threw for a reason nothing here had signaled in advance.
-  process.env.FEE_PAYER_SECRET
+  feePayerSigner
 )
   ? Mppx.create({
       methods: [
@@ -400,7 +412,15 @@ const sessionMppx = (
           // leaving the channel's payout address unverified against it.
           recipient: RECIPIENT,
           currency: USDC_SAC_TESTNET,
-          feePayer: { envelopeSigner: Keypair.fromSecret(process.env.FEE_PAYER_SECRET) },
+          // Required, not optional, in channel.Parameters — unlike Charge
+          // mode, where store is also required but already shown in full
+          // in the Recipient resolution section above. Omitting it here
+          // throws at construction time (inside this same ternary), which
+          // is exactly the "no intent's setup may throw" rule this section
+          // exists to enforce.
+          store: Store.memory(), // dev only — use a persistent store in production
+          feePayer: { envelopeSigner: feePayerSigner },
+          /* ... */
         }),
       ],
     })
