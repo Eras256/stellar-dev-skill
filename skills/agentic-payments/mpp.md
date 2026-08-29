@@ -412,12 +412,12 @@ const sessionMppx = (
           // leaving the channel's payout address unverified against it.
           recipient: RECIPIENT,
           currency: USDC_SAC_TESTNET,
-          // Required, not optional, in channel.Parameters — unlike Charge
-          // mode, where store is also required but already shown in full
-          // in the Recipient resolution section above. Omitting it here
-          // throws at construction time (inside this same ternary), which
-          // is exactly the "no intent's setup may throw" rule this section
-          // exists to enforce.
+          // Required, not optional, in channel.Parameters — same as Charge
+          // mode's own store above, already shown in full in the standalone
+          // Charge and Session server examples earlier in this file.
+          // Omitting it here throws at construction time (inside this same
+          // ternary), which is exactly the "no intent's setup may throw"
+          // rule this section exists to enforce.
           store: Store.memory(), // dev only — use a persistent store in production
           feePayer: { envelopeSigner: feePayerSigner },
           /* ... */
