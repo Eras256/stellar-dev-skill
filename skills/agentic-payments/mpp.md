@@ -312,7 +312,12 @@ export function mppChargeMiddleware(amount, description) {
       res.status(503).json({ error: "MPP charge unavailable — payment middleware not initialized" });
       return;
     }
-    // ... normal charge flow
+    // Delegate to the same per-route handler the standalone Charge server
+    // example above mounts directly (mppx.charge({ amount, description })),
+    // just called manually here instead of passed to app.get() — this
+    // factory's whole job is the null-check above it, not a different
+    // charge implementation.
+    await chargeMppx.charge({ amount, description })(req, res, next);
   };
 }
 ```
@@ -339,7 +344,7 @@ file means aliasing one — here Channel's becomes `stellarChannel`:
 import { Mppx } from "mppx/express";
 import * as stellar from "@stellar/mpp/charge/server";
 import * as stellarChannel from "@stellar/mpp/channel/server";
-import { StrKey } from "@stellar/stellar-sdk";
+import { Keypair, StrKey } from "@stellar/stellar-sdk";
 
 const USDC_SAC_TESTNET = "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA";
 
@@ -374,7 +379,16 @@ const sessionMppx = (
   process.env.MPP_CHANNEL_CONTRACT &&
   commitmentKey &&
   RECIPIENT &&
-  process.env.MPP_SECRET_KEY
+  process.env.MPP_SECRET_KEY &&
+  // Unlike Charge (where feePayer is genuinely optional — see the ternary
+  // in the Charge server example above), Session's own env var list two
+  // sections up already lists FEE_PAYER_SECRET without "(optional)", and
+  // channel.Parameters' own doc comment says feePayer is "Required when
+  // handling close credential actions." Leaving it out of this gate let
+  // sessionMppx construct successfully, isSessionEnabled() report true,
+  // and /info advertise Session as live — right up until close() actually
+  // ran and threw for a reason nothing here had signaled in advance.
+  process.env.FEE_PAYER_SECRET
 )
   ? Mppx.create({
       methods: [
@@ -386,7 +400,7 @@ const sessionMppx = (
           // leaving the channel's payout address unverified against it.
           recipient: RECIPIENT,
           currency: USDC_SAC_TESTNET,
-          /* ... */
+          feePayer: { envelopeSigner: Keypair.fromSecret(process.env.FEE_PAYER_SECRET) },
         }),
       ],
     })
@@ -411,7 +425,9 @@ export function mppSessionMiddleware(amount, description) {
       res.status(503).json({ error: "MPP session unavailable — payment middleware not initialized" });
       return;
     }
-    // ... normal channel flow, e.g. await sessionMppx.channel({ amount, description })(req, res, next)
+    // Same delegation as mppChargeMiddleware above, to the Channel
+    // equivalent of the standalone server example's mppx.channel({...}).
+    await sessionMppx.channel({ amount, description })(req, res, next);
   };
 }
 ```
