@@ -393,6 +393,27 @@ const sessionMppx = (
   : null;
 
 export const isSessionEnabled = () => !!sessionMppx;
+
+// Same shape as mppChargeMiddleware above, and for the same reason: a
+// route wired up the way the standalone Session server example higher in
+// this file shows — sessionMppx.channel({ amount, description }) called
+// directly as route middleware — evaluates that call at route
+// registration time, which runs at import time. With sessionMppx `null`
+// (Session not configured), that throws immediately and takes the whole
+// process down, chargeMppx included — exactly what this section's "no
+// intent's setup may throw or take another down with it" rule exists to
+// prevent. Route through this factory instead of calling sessionMppx
+// directly.
+export function mppSessionMiddleware(amount, description) {
+  return async (req, res, next) => {
+    if (!sessionMppx) {
+      res.setHeader("X-MPP-Warning", "MPP Session not configured on this server");
+      res.status(503).json({ error: "MPP session unavailable — payment middleware not initialized" });
+      return;
+    }
+    // ... normal channel flow, e.g. await sessionMppx.channel({ amount, description })(req, res, next)
+  };
+}
 ```
 
 This is the pattern actually running in production: Charge mode is
