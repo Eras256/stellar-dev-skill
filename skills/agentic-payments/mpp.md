@@ -297,7 +297,7 @@ let chargeMppx = null;
 if (RECIPIENT && process.env.MPP_SECRET_KEY) {
   chargeMppx = Mppx.create({ /* ... */ });
 } else {
-  console.warn("MPP_SECRET_KEY or STELLAR_RECIPIENT not set — MPP charge middleware disabled");
+  console.warn("MPP_SECRET_KEY missing, or STELLAR_RECIPIENT missing or invalid — MPP charge middleware disabled");
 }
 
 // Every route's middleware checks the instance, not the env var directly.
@@ -395,8 +395,24 @@ if (process.env.FEE_PAYER_SECRET) {
   }
 }
 
+// Same validate-before-use pattern as commitmentKey and feePayerSigner
+// above: channel() only validates store, not the channel address itself
+// — a typo'd C... value still builds sessionMppx, /info still reports
+// Session enabled, and the address only reaches `new Contract(...)`
+// deep inside the SDK on the first paid request, where it throws
+// "Invalid contract ID" instead of failing at boot the way this whole
+// section exists to guarantee.
+let channelAddress;
+if (process.env.MPP_CHANNEL_CONTRACT) {
+  if (StrKey.isValidContract(process.env.MPP_CHANNEL_CONTRACT)) {
+    channelAddress = process.env.MPP_CHANNEL_CONTRACT;
+  } else {
+    console.error("MPP_CHANNEL_CONTRACT is not a valid Stellar contract ID — Session mode disabled, Charge unaffected");
+  }
+}
+
 const sessionMppx = (
-  process.env.MPP_CHANNEL_CONTRACT &&
+  channelAddress &&
   commitmentKey &&
   RECIPIENT &&
   process.env.MPP_SECRET_KEY &&
@@ -405,7 +421,7 @@ const sessionMppx = (
   ? Mppx.create({
       methods: [
         stellarChannel.channel({
-          channel: process.env.MPP_CHANNEL_CONTRACT,
+          channel: channelAddress,
           commitmentKey,
           // Strongly recommended, not just optional: RECIPIENT is already a
           // precondition to reach this branch, so wire it through instead of
