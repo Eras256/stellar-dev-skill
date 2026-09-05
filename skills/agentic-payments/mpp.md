@@ -104,6 +104,8 @@ console.log(await res.json());
 **Env vars (server):** `STELLAR_RECIPIENT`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET` (optional)
 **Env vars (client):** `STELLAR_SECRET_KEY`
 
+> **`MPP_SECRET_KEY` must be at least 32 bytes.** `mppx@0.6.31`'s `Mppx.create()` only checks it's present, not its length — a one-character value is accepted and then signs every HMAC challenge. Generate one with `openssl rand -base64 32`. (`mppx@0.9.x` adds this check itself via `SecretKey.assert()`; pinned to `0.6.31` per the install note above, this doc's own examples don't get it for free.)
+
 **`mode: "pull"` vs `"push"`:**
 - `"pull"` — client signs auth entries, server assembles + broadcasts (default; use with `feePayer`)
 - `"push"` — client builds and broadcasts the transaction directly (client must have XLM for fees)
@@ -242,6 +244,8 @@ console.log("Channel closed:", txHash);
 
 **Env vars (server):** `MPP_CHANNEL_CONTRACT`, `MPP_COMMITMENT_KEY`, `STELLAR_RECIPIENT`, `MPP_SECRET_KEY`, `FEE_PAYER_SECRET`
 **Env vars (client):** `COMMITMENT_SECRET`
+
+> `MPP_SECRET_KEY` carries the same 32-byte minimum here as in Charge mode above — see the note there.
 
 ## Production patterns
 
@@ -500,7 +504,10 @@ app.get("/info", (_req, res) => {
       },
       session: {
         enabled: isSessionEnabled(),
-        channelContract: process.env.MPP_CHANNEL_CONTRACT || null,
+        // channelAddress, not process.env.MPP_CHANNEL_CONTRACT directly — channelAddress
+        // is undefined when the raw env var failed StrKey.isValidContract() above, so a
+        // rejected value shows null here instead of appearing valid beside enabled: false.
+        channelContract: channelAddress || null,
         note: "Off-chain cumulative commitments, two on-chain txs total (deposit + close).",
       },
     },
@@ -571,8 +578,10 @@ Full reference: [MPP discovery docs](https://mpp.dev/advanced/discovery).
 ## Packages and subpath imports
 
 ```bash
-npm install @stellar/mpp mppx @stellar/stellar-sdk
+npm install @stellar/mpp mppx@^0.6.31 @stellar/stellar-sdk@^15
 ```
+
+Pinned for the same reason as the Charge mode install above: `@stellar/mpp@0.7.1` declares `peerDependencies` of `mppx: ^0.6.29` and `@stellar/stellar-sdk: ^15.1.0`, but unpinned resolves each package's `latest` tag today (`mppx@0.9.2`, `@stellar/stellar-sdk@17.0.1`) — both outside those ranges, so an unpinned install fails with `ERESOLVE`.
 
 | Import path | Recommended import pattern |
 |-------------|----------------------------|
