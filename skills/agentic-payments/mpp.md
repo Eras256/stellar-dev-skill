@@ -515,7 +515,7 @@ app.get("/info", (_req, res) => {
 });
 ```
 
-An agent that reads this before its first request can pick a working
+An agent that reads this before its first request can pick a configured
 intent instead of finding out from a 503 that Session was never
 configured.
 
