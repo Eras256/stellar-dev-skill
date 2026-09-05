@@ -22,11 +22,11 @@ If you need zero-XLM clients or the simplest possible setup, use x402 ([x402.md]
 Each request triggers a SAC token transfer settled on-chain. No facilitator. Server can optionally sponsor fees so clients don't need XLM.
 
 ```bash
-npm install express@^5 @stellar/mpp mppx @stellar/stellar-sdk@^15 dotenv
+npm install express@^5 @stellar/mpp mppx@^0.6.31 @stellar/stellar-sdk@^15 dotenv
 npm pkg set type=module
 ```
 
-> **Version alignment matters:** `@stellar/mpp@0.7.x` pins `@stellar/stellar-sdk@^15.1.0` (installing alongside SDK 13/14 fails with `ERESOLVE`), and `mppx` expects `express@>=5`.
+> **Version alignment matters:** `@stellar/mpp@0.7.x` pins `@stellar/stellar-sdk@^15.1.0` (installing alongside SDK 13/14 fails with `ERESOLVE`) and `peerDependencies.mppx: ^0.6.29` — pin `mppx@^0.6.31` explicitly, since an unpinned install resolves the latest `mppx` (0.9.x), which falls outside that peer range and also adds a `SecretKey.assert()` guard this doc's "no intent's setup may throw at import time" guarantee assumes isn't there yet. `mppx` also expects `express@>=5`.
 
 **Server:**
 
@@ -619,12 +619,12 @@ npm install @stellar/mpp mppx @stellar/stellar-sdk
 - Fix: pass `store: Store.memory()` (dev) or a persistent store to `stellar.charge({ ... })` — charge mode requires one, not just session mode.
 
 **Install fails with `ERESOLVE`**
-- Symptom: npm refuses to install `@stellar/mpp` alongside an existing stellar-sdk 13/14
-- Fix: `@stellar/mpp@0.7.x` pins `@stellar/stellar-sdk@^15.1.0`, and `mppx` expects `express@>=5` — align versions per the install note above.
+- Symptom: npm refuses to install `@stellar/mpp` alongside an existing stellar-sdk 13/14, or alongside an unpinned `mppx`
+- Fix: `@stellar/mpp@0.7.x` pins `@stellar/stellar-sdk@^15.1.0` and `peerDependencies.mppx: ^0.6.29`, and `mppx` expects `express@>=5` — align versions per the install note above, including the `mppx@^0.6.31` pin (an unpinned install resolves the latest 0.9.x, outside that peer range).
 
 **Session: wrong commitment key format**
 - Symptom: `Keypair.fromRawEd25519Seed` throws or signatures fail to verify
-- Fix: the commitment key is a raw ed25519 seed as a 64-char hex string — not a Stellar `S...` secret key. Generate with `crypto.randomBytes(32).toString('hex')`.
+- Fix: two different 64-char hex values, not a Stellar `S...` secret key and not interchangeable. `COMMITMENT_SECRET` (client only) is the raw ed25519 **seed** — generate with `crypto.randomBytes(32).toString('hex')`. `MPP_COMMITMENT_KEY` (server) is the **public key** derived from that same seed, hex-encoded the same way — never the seed itself. See the testnet runbook above for the derivation step.
 
 **Session: non-cumulative amounts**
 - Symptom: server rejects commitments after the first request
