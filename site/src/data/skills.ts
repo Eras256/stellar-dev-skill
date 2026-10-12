@@ -141,8 +141,10 @@ export const SKILL_CARD_SOURCES: readonly SkillCardSource[] = [
 /**
  * Community-contributed skills hosted on third-party sites (e.g. GitHub).
  * Displayed in the "Community skills" section at the bottom of the page.
+ * Kept in merge order; append new entries at the end. Consumers read the
+ * sorted `ECOSYSTEM_CARDS` below.
  */
-export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
+const ECOSYSTEM_CARD_SOURCES: readonly EcosystemCardSource[] = [
   {
     title: "OpenZeppelin Contracts",
     description:
@@ -441,3 +443,8 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
       "https://raw.githubusercontent.com/rumblefishdev/stellar-prices-api/master/skills/stellar-prices-api/SKILL.md",
   },
 ] as const;
+
+/** `ECOSYSTEM_CARD_SOURCES` sorted by title, case-insensitive. */
+export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
+  ...ECOSYSTEM_CARD_SOURCES,
+].sort((a, b) => a.title.localeCompare(b.title, "en", { sensitivity: "base" }));
