@@ -167,6 +167,13 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     copyValue: "https://raw.githubusercontent.com/soroswap/sdk/main/soroswap-sdk-skill.md",
   },
   {
+    title: "SODAX",
+    description:
+      "Build cross-network trading, lending, and asset transfers between Stellar and 20+ other networks with the @sodax/sdk TypeScript package. Covers intent quotes and status polling, Stellar trustline handling on source and destination, sponsored activation for new 0-XLM accounts, dapp-kit React hooks, and the Result error model.",
+    pathLabel: "sodax.com/skill.md",
+    copyValue: "https://www.sodax.com/skill.md",
+  },
+  {
     title: "Trustless Work Escrow",
     description:
       "Build escrow and milestone-based payment workflows on Stellar with the Trustless Work platform. Covers single-release and multi-release escrows, trustline configuration, dispute handling, and three integration paths: REST API, React SDK hooks, and pre-built Blocks UI components.",
@@ -385,6 +392,45 @@ export const ECOSYSTEM_CARDS: readonly EcosystemCardSource[] = [
     pathLabel: "stellar-registry/cli",
     copyValue:
       "https://raw.githubusercontent.com/stellar-registry/cli/main/skills/stellar-registry/SKILL.md",
+  },
+  {
+    title: "Scopuly Wallet",
+    description:
+      "Connect Stellar dApps to Scopuly Mobile and its paired browser extension using the Provider API or Stellar Wallets Kit. Covers transaction signing, SEP-53 messages, Soroban authorization, account and network changes, and error handling.",
+    pathLabel: "Scopuly/scopuly-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/Scopuly/scopuly-skills/main/skills/scopuly-wallet/SKILL.md",
+  },
+  {
+    title: "Blux",
+    description:
+      "Bring Web2 users to Stellar with passkey, OAuth, email, or wallet login. Customize the UI, then use wagmi-style React hooks and JavaScript functions to read balances, call Soroban contracts, and send transactions.",
+    pathLabel: "docs.blux.cc/SKILLS.md",
+    copyValue: "https://docs.blux.cc/SKILLS.md",
+  },
+  {
+    title: "Wasit",
+    description:
+      "Protocol-compliance testing for x402 and MPP on Stellar. Runs the real payment flow against a live service, then verifies settlement independently on Stellar RPC from the token contract's own transfer event rather than the service's own response. Ships as a CLI and an MCP server, with every check mapped to a written spec clause in a published catalogue.",
+    pathLabel: "wasit-dev/wasit",
+    copyValue:
+      "https://raw.githubusercontent.com/wasit-dev/wasit/main/skills/wasit/SKILL.md",
+  },
+  {
+    title: "CosmosPay",
+    description:
+      "Integrate Stellar checkout and wallet flows with @cosmosapp/pay_sdk. Covers SEP-7 payment intents, browser wallet approval, server-side transaction validation, signed webhooks, and secure patterns for swaps, liquidity and fiat ramps.",
+    pathLabel: "CosmosPay/cosmospay-skill",
+    copyValue:
+      "https://raw.githubusercontent.com/CosmosPay/cosmospay-skill/main/SKILL.md",
+  },
+  {
+    title: "XOXNO Lending & Borrowing",
+    description:
+      "Integrate XOXNO Lending on Stellar from a contract, dApp, backend, or bot. Covers supply, borrow, repay, withdraw, and leverage through the controller, position NFT accounts, liquidations, flash loans, aggregator swaps, and the REST and quote APIs.",
+    pathLabel: "XOXNO/rs-lending-xlm",
+    copyValue:
+      "https://raw.githubusercontent.com/XOXNO/rs-lending-xlm/main/skills/xoxno-lending/SKILL.md",
   },
   {
     title: "Stellar Prices API",
