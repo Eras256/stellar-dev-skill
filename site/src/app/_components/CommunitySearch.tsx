@@ -41,10 +41,13 @@ export const CommunitySearch = ({ searchTexts, children }: Props) => {
   // link opens with the same filtered results. Read directly from
   // `window` (not `useSearchParams`) to keep this component free of
   // Suspense, since the cards it wraps must stay in the static export.
+  // This runs after hydration on purpose: reading `window` during render
+  // would make the first client render differ from the static HTML.
   useEffect(() => {
     const initial = new URLSearchParams(window.location.search).get(
       QUERY_PARAM,
     );
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of the URL after hydration
     if (initial) setQuery(initial);
   }, []);
 
