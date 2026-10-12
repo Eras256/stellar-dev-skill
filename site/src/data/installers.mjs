@@ -34,7 +34,7 @@ export const INSTALLERS = [
     name: "OpenAI Codex",
     description: "Clone the repo into your Codex skills directory:",
     commands: [
-      "git clone https://github.com/stellar/stellar-dev-skill ~/.codex/skills/stellar-dev-skill",
+      "git clone https://github.com/stellar/stellar-dev-skill ~/.agents/skills/stellar-dev-skill",
     ],
   },
   {

@@ -46,11 +46,13 @@ These skills work with any agent that supports the [Agent Skills](https://agents
 /plugin install stellar-dev@stellar-dev
 ```
 
-### [OpenAI Codex](https://developers.openai.com/codex/skills/)
+### [OpenAI Codex](https://learn.chatgpt.com/docs/build-skills)
 
 ```bash
-git clone https://github.com/stellar/stellar-dev-skill ~/.codex/skills/stellar-dev-skill
+git clone https://github.com/stellar/stellar-dev-skill ~/.agents/skills/stellar-dev-skill
 ```
+
+Codex still reads the older `~/.codex/skills/` path, but that path is deprecated.
 
 ### [npx skills](https://skills.sh)
 
@@ -79,7 +81,7 @@ Copy the `skills/` directory contents to your assistant's skills location.
 |-------|-----------------|------|
 | Claude Code | `~/.claude/skills/` | [docs](https://code.claude.com/docs/en/skills) |
 | OpenCode | `~/.config/opencode/skill/` | [docs](https://opencode.ai/docs/skills/) |
-| OpenAI Codex | `~/.codex/skills/` | [docs](https://developers.openai.com/codex/skills/) |
+| OpenAI Codex | `~/.agents/skills/` | [docs](https://learn.chatgpt.com/docs/build-skills) |
 | OpenClaw | `~/.openclaw/skills/` | [docs](https://docs.openclaw.ai/tools/skills) |
 | Pi | `~/.pi/agent/skills/` | [docs](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent#skills) |
 
