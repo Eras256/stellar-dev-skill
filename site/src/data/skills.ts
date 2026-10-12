@@ -442,6 +442,102 @@ const ECOSYSTEM_CARD_SOURCES: readonly EcosystemCardSource[] = [
     copyValue:
       "https://raw.githubusercontent.com/rumblefishdev/stellar-prices-api/master/skills/stellar-prices-api/SKILL.md",
   },
+  {
+    title: "Cryptography Research Framing",
+    description:
+      "Turn a rough cryptography idea into a precise research question. Separates facts, assumptions, and conjectures, and proposes definitions, candidate lemmas, constructions, counterexamples, or obstructions as the next mathematical step.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/research/crypto-research-framing/SKILL.md",
+  },
+  {
+    title: "Cryptography Literature Evidence",
+    description:
+      "Find and verify primary-source cryptography claims with exact source locators. Covers citation checks, comparison of paper versions, and literature surveys that rely on the paper itself, not search snippets or summaries.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/research/crypto-literature-evidence/SKILL.md",
+  },
+  {
+    title: "Crypto Proof Auditor",
+    description:
+      "Audit or complete cryptographic proofs, reductions, simulators, and security theorems. Checks that the conclusion follows from the stated definition, model, and assumptions, and flags gaps instead of hiding them with new assumptions.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/research/crypto-proof-auditor/SKILL.md",
+  },
+  {
+    title: "Cryptographic Correlation Accounting",
+    description:
+      "Define and compare correlation counts, PCG expansion ratios, and throughput units by algebraic relation, domain, grouping, and denominator. Use when lanes, entries, blocks, or correlation rates are ambiguous.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/research/crypto-correlation-accounting/SKILL.md",
+  },
+  {
+    title: "Cryptography Writing",
+    description:
+      "Draft or minimally edit cryptography manuscripts: definitions, theorem statements, security arguments, abstracts, and technical overviews. Presents simulation proofs as a simulator plus named hybrids and keeps the construction and guarantee unchanged.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/writing/cryptography-writing/SKILL.md",
+  },
+  {
+    title: "Crypto Prior-Work Comparison",
+    description:
+      "Draft or review prior-work comparisons and comparison tables in cryptography papers. Aligns models, construction variants, costs, and evidence so each claimed improvement states its conditions and its cost.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/writing/crypto-prior-work-comparison/SKILL.md",
+  },
+  {
+    title: "Crypto Implementation Evaluation Writing",
+    description:
+      "Draft, revise, or review implementation and evaluation sections from code and experimental results. Covers supported performance claims, fair comparisons, setup and amortization, and missing evidence.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/writing/crypto-implementation-evaluation-writing/SKILL.md",
+  },
+  {
+    title: "Cryptography Manuscript QA",
+    description:
+      "Check cryptography manuscript sources, LaTeX builds, PDF page locations, references, layout, and paper-to-code consistency. Resolves the active include graph and requested version before citing pages or editing.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/writing/crypto-manuscript-qa/SKILL.md",
+  },
+  {
+    title: "Cryptography AI Acknowledgements",
+    description:
+      "Draft or review AI-use disclosures in cryptography papers from the actual record of assistance and human checking. Separates research, writing, code, experiments, and formalization, and does not certify proofs or infer AI use.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/writing/crypto-ai-acknowledgements/SKILL.md",
+  },
+  {
+    title: "Cryptographic Protocol Implementation",
+    description:
+      "Implement, optimize, reproduce, or review cryptographic protocol code against its specification. Covers circuit, transcript, state, sampler, and adapter fidelity, plus the security obligations that code changes affect, with MPC and ZK optimization guides.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/implementation/crypto-protocol-implementation/SKILL.md",
+  },
+  {
+    title: "Cryptography Benchmarking",
+    description:
+      "Design, run, or audit cryptographic experiments with explicit timing, communication, memory, and statistical accounting. Defines the measured object, operations, units, and hardware before results go into tables.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/implementation/crypto-benchmarking/SKILL.md",
+  },
+  {
+    title: "Cryptography Research Artifacts",
+    description:
+      "Prepare, document, anonymize, validate, and package cryptography research artifacts for reviewers. Builds claim-to-command maps and validates the release from a fresh extraction.",
+    pathLabel: "ziyang-theory/cryptography-research-skills",
+    copyValue:
+      "https://raw.githubusercontent.com/ziyang-theory/cryptography-research-skills/main/implementation/crypto-research-artifacts/SKILL.md",
+  },
 ] as const;
 
 /** `ECOSYSTEM_CARD_SOURCES` sorted by title, case-insensitive. */
