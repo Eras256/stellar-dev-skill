@@ -90,9 +90,8 @@ then append to `SKILL_CARD_SOURCES`:
 
 **Ecosystem:** external link, no upstream copy. New entries are picked
 up automatically by the community search, pagination, and llms.txt; no
-other wiring needed. Insert the entry alphabetically by `title`
-(case-insensitive) in `ECOSYSTEM_CARDS`, not appended at the end, so a
-card's position reflects its name rather than merge order.
+other wiring needed. Append to `ECOSYSTEM_CARD_SOURCES`; the exported
+`ECOSYSTEM_CARDS` is sorted by title, so do not reorder the list.
 
 ```ts
 {

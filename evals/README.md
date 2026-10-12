@@ -1,6 +1,6 @@
 # Skill Evaluations
 
-Representative task scenarios for seven of the eight skills in this repo, following [Anthropic's evaluation-driven skill authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration). `cross-chain` landed after this set was written and has no scenarios yet. Each scenario encodes a mistake an agent actually makes *without* the skill — several come from real failure modes (the #41 compile bugs, documented pitfalls in agentic-payments, the ZK curve trap), not imagined ones. Run them before publishing skill changes so regressions get caught here instead of by users.
+Representative task scenarios for all eight skills in this repo, following [Anthropic's evaluation-driven skill authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration). `cross-chain` landed after this set was written; its scenarios arrived with the USDT0 rail. Each scenario encodes a mistake an agent actually makes *without* the skill — several come from real failure modes (the #41 compile bugs, documented pitfalls in agentic-payments, the ZK curve trap), not imagined ones. Run them before publishing skill changes so regressions get caught here instead of by users.
 
 ## Scenario format
 
@@ -25,7 +25,7 @@ One JSON file per scenario under `scenarios/<skill>/`:
 | `machine_checkable` | (optional) Assertions a script can verify without a judge — compile checks, real CLI syntax. |
 | `negative` | (optional) This is an off-topic control; loading any Stellar skill is a failure. |
 
-`scenarios/routing/` holds cross-skill scenarios that no single-skill eval catches: multi-skill loads and the off-topic negative control.
+`scenarios/routing/` holds cross-skill scenarios that no single-skill eval catches: multi-skill loads, the off-topic negative control, and false-positive third-party skill loads.
 
 ## Grading tiers
 
