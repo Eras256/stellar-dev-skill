@@ -1,6 +1,6 @@
 ---
 name: agentic-payments
-description: Agentic and machine-to-machine payments on Stellar. Covers x402 (HTTP 402 paid APIs via OZ Channels facilitator, fee-sponsored clients) and MPP (Machine Payments Protocol) in both Charge mode (per-request SAC) and Session mode (channel-backed off-chain commits, high-frequency; formerly called Channel mode). Defaults to USDC (SEP-41 SAC) on `stellar:testnet`/`stellar:pubnet` (CAIP-2). Use when selling a paid API to AI agents, building an x402 client, or designing a payment-channel architecture for high-frequency agent traffic.
+description: Agentic and machine-to-machine payments on Stellar. Covers x402 (HTTP 402 paid APIs through a facilitator, fee-sponsored clients; the guide configures OZ Channels) and MPP (Machine Payments Protocol) in both Charge mode (per-request SAC) and Session mode (channel-backed off-chain commits, high-frequency; formerly called Channel mode). Defaults to USDC (SEP-41 SAC) on `stellar:testnet`/`stellar:pubnet` (CAIP-2). Use when selling a paid API to AI agents, building an x402 client, or designing a payment-channel architecture for high-frequency agent traffic.
 user-invocable: true
 argument-hint: "[payment task]"
 ---
@@ -14,7 +14,7 @@ Two complementary protocols for AI-agent and machine-to-machine payments on Stel
 | | x402 | MPP Charge | MPP Session |
 |--|------|------------|-------------|
 | Per-request on-chain tx? | Yes (via facilitator) | Yes (SAC) | No (off-chain commits) |
-| Needs facilitator? | Yes (OZ Channels) | No | No |
+| Needs facilitator? | Yes — hosted or your own ([options](x402.md#facilitator-options)) | No | No |
 | Client needs XLM? | No (fees sponsored) | Optional (`feePayer`) | Yes |
 | Setup complexity | Low | Low | Medium (deploy contract first) |
 | Best for | Quickest setup, fee-free clients | No third-party dep | High-frequency agents |
@@ -23,6 +23,7 @@ Two complementary protocols for AI-agent and machine-to-machine payments on Stel
 - Calling an x402 API from an agent → **x402 Buyer** in [x402.md](x402.md)
 - Selling an API, no facilitator dependency → **Charge mode** in [mpp.md](mpp.md)
 - Agent making many requests per session → **Session mode** in [mpp.md](mpp.md)
+- Sold an API, now want agents to find it → **Discovery** in [mpp.md](mpp.md#discovery-let-agents-find-your-paid-api)
 - Unsure → x402 (lowest friction to get started)
 
 All protocols use USDC (SEP-41 SAC) by default; `stellar:testnet` / `stellar:pubnet` CAIP-2 network IDs.
@@ -35,6 +36,7 @@ This file carries the decision table, the shared testnet account setup, and the 
 |------|------|
 | Sell a paid API via a facilitator (zero-XLM clients), build an x402 buyer agent | [x402.md](x402.md) |
 | Facilitator-free per-request payments (Charge) or channel-backed sessions (Session) | [mpp.md](mpp.md) |
+| Publish an OpenAPI discovery document so agents find your paid API | [Discovery](mpp.md#discovery-let-agents-find-your-paid-api) |
 | Create/fund testnet accounts, add USDC trustlines, get testnet USDC | [Testnet setup](#testnet-setup-shared) (below) |
 | Which USDC address goes where (classic issuer vs SAC) | [Two USDC addresses](#two-usdc-addresses-dont-confuse-them) (below) |
 
@@ -50,7 +52,7 @@ This file carries the decision table, the shared testnet account setup, and the 
 
 Both protocols need the same base setup: a **client/payer** account (signs and pays from a USDC balance) and a **server/recipient** account. Both need a USDC trustline.
 
-One step is web-only (Captcha) and cannot be scripted: the Circle USDC faucet. Everything else can be automated — [x402.md](x402.md) ships a `setup.js` that does steps 1–3 and writes a starter `.env`. (x402 additionally needs the web-only OZ Channels key generator; MPP needs no third-party key.)
+One step of this shared setup is web-only (Captcha) and cannot be scripted: the Circle USDC faucet. The rest of it can be automated — [x402.md](x402.md) ships a `setup.js` that does steps 1–3 and writes a starter `.env`. (Outside this setup, the OZ Channels facilitator that x402.md configures has its own web-only key generator. Each facilitator sets its own auth requirement — the x402.org one needs none — and MPP needs no third party at all.)
 
 1. **Generate two keypairs**
    ```bash
