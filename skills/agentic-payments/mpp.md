@@ -252,8 +252,10 @@ console.log("Channel closed:", txHash);
 ## Production patterns
 
 Three patterns for running Charge and Session behind the same server,
-verified against a service that's been billing real USDC over MPP Charge
-in production since before this skill existed.
+taken from a deployed service. Its Charge mode was verified end to end
+on testnet (settled payments, `pull` and `push`); its mainnet endpoint
+has not been verified with a settled payment, so treat these as tested
+patterns, not as proof of a production billing history.
 
 ### Recipient resolution (recover at boot, fail closed per request)
 
@@ -474,8 +476,9 @@ export function mppSessionMiddleware(amount, description) {
 }
 ```
 
-This is the pattern actually running in production: Charge mode is
-initialized and billing; Session mode's instance is `null` there today,
+This is the pattern running on that deployment: Charge mode is
+initialized and verified on testnet (not yet on mainnet); Session mode's
+instance is `null` there today,
 by choice — it requires deploying and funding a channel contract per
 deployment, a step that carries custody implications worth a compliance
 pass before turning on for a given business. Session works the same way
